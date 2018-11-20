@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Principal;
 
 
+import View.Estoque.Controle_Estoque;
+import View.Escritório.Controle_Escritório;
 import javax.swing.JOptionPane;
 
 /**

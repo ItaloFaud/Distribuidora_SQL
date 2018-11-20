@@ -9,10 +9,10 @@ package Modelo;
  *
  * @author Hoope
  */
-public class Cliente {
+public class Fatura {
     private int id;
-    private String Nome;
-    private String cpf;
+    private String subtotal;
+    private int idCliente;
 
     public int getId() {
         return id;
@@ -21,24 +21,20 @@ public class Cliente {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
 
-    public String getCpf() {
-        return cpf;
+    public String getSubtotal() {
+        return subtotal;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setSubtotal(String subtotal) {
+        this.subtotal = subtotal;
     }
 
-    public String getNome() {
-        return Nome;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setNome(String Nome) {
-        this.Nome = Nome;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
-   
-    
 }

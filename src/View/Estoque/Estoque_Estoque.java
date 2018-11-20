@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.Estoque;
 
 
-import Modelo.Cliente;
+import View.Estoque.Controle_Estoque;
+import Principal.Tela_Inicial;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Hoope
  */
-public class Ver_Lista_Escritório extends javax.swing.JFrame {
+public class Estoque_Estoque extends javax.swing.JFrame {
 
     /**
      * Creates new form Tela_Inicial
@@ -31,68 +32,78 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
         
-    public Ver_Lista_Escritório(String Cliente) {
+    public Estoque_Estoque() {
         initComponents();
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
         setLocationRelativeTo(this);
-        NCliente.setText(Cliente);
-        try {
-            Tabela();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Ver_Lista_Escritório.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       Produtos();
+        Caixas();
         
     }
-
-    private Ver_Lista_Escritório() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
-    public void Tabela() throws FileNotFoundException {
+    public void Produtos(){
         DefaultTableModel tabela = (DefaultTableModel) Tabela.getModel();
         
-        File pasta = new File("Pedidos");
-        File Clientes[] = pasta.listFiles();
+        File Pasta = new File("Produtos");
+        File tam[] = Pasta.listFiles();
         
-        if (Clientes != null){
-            Cliente c1 = new Cliente();
-            Cliente c2 = new Cliente();
-            c1.setNome(NCliente.getText().toUpperCase());
-            
-            
-            for (int i = 0; i < Clientes.length; i++) {
-                File Cliente = Clientes[i];
-                c2.setNome(Cliente.getName().toUpperCase());
+        if (tam != null) {
+        String pros = "";
+        String caixas = "";
+        String Preco = "";
+        String Cod = "";
+        
+        int pos = 1;
+            for (int i = 0; i < tam.length; i++) {
+                File file = tam[i];
+                pros =pos+"."+file.getName();
                 
-                if (c1.getNome().equals(c2.getNome())){
-                    File ProdutosP = new File ("Pedidos/"+c1.getNome());
-                    File Produtos[] = ProdutosP.listFiles();
-                    String Nome = "";
-                    String Caixas = "";
-                    int pos = 1;
-                    for (int j = 0; j < Produtos.length; j++) {
-                        File Produto = Produtos[j];
-                        Nome =pos+"."+Produto.getName();
-                        
-                        FileReader NM = new FileReader("Pedidos/"+c1.getNome()+"/"+Produto.getName()+"/Caixas.txt");
-                        BufferedReader LNM = new BufferedReader(NM);
-                        try {
-                            Caixas = pos+"."+LNM.readLine();
-                        } catch (IOException ex) {
-                            Logger.getLogger(Ver_Lista_Escritório.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        Object Pedido[] = {Nome,Caixas};
-                        tabela.addRow(Pedido);
-                           pos++;
-                        
-                    }
-                break;
+                
+                //File qtn = 
+            
+            try {
+                FileReader filee = new FileReader(tam[i]+"/Caixas.txt");
+                BufferedReader c = new BufferedReader(filee);
+                
+                FileReader preco = new FileReader(tam[i]+"/Preco.txt");
+                BufferedReader Lpreco = new BufferedReader(preco);
+                
+                FileReader codigo = new FileReader(tam[i]+"/Codigo.txt");
+                BufferedReader Lcodigo = new BufferedReader(codigo);
+                
+                
+                try {
+                    String numC = c.readLine();
+                    caixas = pos+"."+numC;
+                    
+                    String PPreco = Lpreco.readLine();
+                    Preco = pos+"."+PPreco;
+                    
+                    String codd = Lcodigo.readLine();
+                    Cod = pos+"."+codd;
+                    
+                    
+                } catch (IOException ex) {
+                   
                 }
+            } catch (FileNotFoundException ex) {
+                
+            }
+            Object DadosPros[] = {pros,caixas,Preco,Cod};
+            tabela.addRow(DadosPros);
+            pos++;
+            }
+        //CampoTxt.setText(pros);
+        
         }
         
+        
+          
     }
     
+    public void Caixas(){
+        
     }
 
     /**
@@ -106,11 +117,10 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
 
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabela = new javax.swing.JTable();
-        NCliente = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Tabela = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -128,31 +138,11 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(530, 500, 120, 29);
 
-        jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cliente:");
+        jLabel1.setText("Estoque");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 30, 80, 21);
-
-        Tabela.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        Tabela.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Produtos_Marcas", "Caixas "
-            }
-        ));
-        jScrollPane1.setViewportView(Tabela);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 60, 620, 420);
-
-        NCliente.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
-        NCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        NCliente.setText("Distribuidora Ítalo");
-        getContentPane().add(NCliente);
-        NCliente.setBounds(110, 30, 370, 21);
+        jLabel1.setBounds(30, 40, 78, 29);
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -172,6 +162,20 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(400, 500, 110, 30);
 
+        Tabela.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        Tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Produtos_Marcas", "Caixas em estoque", "Preço da Caixa", "Código"
+            }
+        ));
+        jScrollPane1.setViewportView(Tabela);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(20, 80, 620, 400);
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
         jLabel2.setBounds(0, 0, 660, 600);
@@ -187,7 +191,7 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new Controle_Escritório().setVisible(true);
+        new Controle_Estoque().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -208,14 +212,74 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ver_Lista_Escritório.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Estoque_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ver_Lista_Escritório.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Estoque_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ver_Lista_Escritório.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Estoque_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ver_Lista_Escritório.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Estoque_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -224,13 +288,12 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ver_Lista_Escritório().setVisible(true);
+                new Estoque_Estoque().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel NCliente;
     private javax.swing.JTable Tabela;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

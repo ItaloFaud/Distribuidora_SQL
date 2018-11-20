@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.Escritório;
 
 
+import View.Escritório.Controle_Escritório;
+import Principal.Tela_Inicial;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Hoope
  */
-public class Estoque_Estoque extends javax.swing.JFrame {
+public class Estoque_Escritório extends javax.swing.JFrame {
 
     /**
      * Creates new form Tela_Inicial
@@ -30,13 +32,12 @@ public class Estoque_Estoque extends javax.swing.JFrame {
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
         
-    public Estoque_Estoque() {
+    public Estoque_Escritório() {
         initComponents();
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
         setLocationRelativeTo(this);
        Produtos();
-        Caixas();
         
     }
     
@@ -69,9 +70,8 @@ public class Estoque_Estoque extends javax.swing.JFrame {
                 
                 FileReader codigo = new FileReader(tam[i]+"/Codigo.txt");
                 BufferedReader Lcodigo = new BufferedReader(codigo);
-                
-                
                 try {
+                    
                     String numC = c.readLine();
                     caixas = pos+"."+numC;
                     
@@ -80,7 +80,6 @@ public class Estoque_Estoque extends javax.swing.JFrame {
                     
                     String codd = Lcodigo.readLine();
                     Cod = pos+"."+codd;
-                    
                     
                 } catch (IOException ex) {
                    
@@ -97,12 +96,11 @@ public class Estoque_Estoque extends javax.swing.JFrame {
         }
         
         
+        
+    
           
     }
     
-    public void Caixas(){
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -189,7 +187,7 @@ public class Estoque_Estoque extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new Controle_Estoque().setVisible(true);
+        new Controle_Escritório().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -210,46 +208,14 @@ public class Estoque_Estoque extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Estoque_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Estoque_Escritório.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Estoque_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Estoque_Escritório.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Estoque_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Estoque_Escritório.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Estoque_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Estoque_Escritório.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -286,7 +252,7 @@ public class Estoque_Estoque extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Estoque_Estoque().setVisible(true);
+                new Estoque_Escritório().setVisible(true);
             }
         });
     }

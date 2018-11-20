@@ -5,8 +5,6 @@
  */
 package Principal;
 
-import View.Tela_Inicial;
-
 /**
  *
  * @author Hoope

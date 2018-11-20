@@ -1,18 +1,27 @@
 package Modelo;
 
-import View.Alterar_Pro;
+import View.Escritório.Alterar_Pro;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import javax.swing.JOptionPane;
 
 public class Produto {
+    private int id;
     private String nome;
     private String marca;
     private String caixas;
     private String preco;
     private String data;
     private String codigo;
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCodigo() {
         return codigo;

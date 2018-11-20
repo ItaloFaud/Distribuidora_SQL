@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Principal;
 
+import Principal.Login_Funn;
+import View.Cliente.Estoque_Armazem;
+import View.Cliente.Comprar_Pro_Cliente;
 import Modelo.Cliente;
 import java.awt.Dimension;
 import java.awt.Toolkit;

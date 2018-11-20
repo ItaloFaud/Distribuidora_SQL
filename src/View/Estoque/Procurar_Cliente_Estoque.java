@@ -3,25 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.Estoque;
 
 
+import View.Estoque.Ver_Lista_Estoque;
+import View.Estoque.Controle_Estoque;
 import Modelo.Cliente;
-import java.io.BufferedReader;
+import Principal.Tela_Inicial;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Hoope
  */
-public class Clientes_Estoque extends javax.swing.JFrame {
+public class Procurar_Cliente_Estoque extends javax.swing.JFrame {
 
     /**
      * Creates new form Tela_Inicial
@@ -31,55 +27,11 @@ public class Clientes_Estoque extends javax.swing.JFrame {
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
         
-    public Clientes_Estoque() {
+    public Procurar_Cliente_Estoque() {
         initComponents();
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
         setLocationRelativeTo(this);
-        Clientes();
-        
-    }
-    
-    public void Clientes() {
-        DefaultTableModel tabela = (DefaultTableModel) Tabela.getModel();
-        
-        File pasta = new File("Pedidos");
-        File Clientes[] = pasta.listFiles();
-        
-        if (Clientes != null){
-            Cliente c1 = new Cliente();
-            String PTot = "";
-            int pos = 1;
-            
-            for (int i = 0; i < Clientes.length; i++) {
-                File Cliente = Clientes[i];
-                c1.setNome(Cliente.getName().toUpperCase());
-                
-                try {
-                    //                File NomePro = new File("Pedidos/"+c1.getNome());
-//                File Preco[] = NomePro.listFiles();
-
-                FileReader PrecoTot = new FileReader("Pedidos/"+c1.getNome()+"/Sub_Total.txt");
-                    BufferedReader Lptot = new BufferedReader(PrecoTot);
-                    try {
-                        PTot = Lptot.readLine();
-                    } catch (IOException ex) {
-                        Logger.getLogger(Clientes_Estoque.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                
-                
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(Clientes_Estoque.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Object InfoCliente[] = {pos+"."+c1.getNome(),PTot};
-                tabela.addRow(InfoCliente);
-                pos++;
-                
-            }
-            
-            
-        }
         
     }
 
@@ -94,8 +46,10 @@ public class Clientes_Estoque extends javax.swing.JFrame {
 
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabela = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        NomeCliente = new javax.swing.JTextField();
+        Procurar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -120,19 +74,38 @@ public class Clientes_Estoque extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(10, 510, 126, 21);
 
-        Tabela.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        Tabela.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jLabel3.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Procurar por Cliente");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(30, 40, 190, 29);
 
-            },
-            new String [] {
-                "Cliente", "Preço do Pedido"
+        jLabel6.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Nome do Cliente:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(140, 140, 120, 21);
+
+        NomeCliente.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        NomeCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NomeClienteActionPerformed(evt);
             }
-        ));
-        jScrollPane1.setViewportView(Tabela);
+        });
+        getContentPane().add(NomeCliente);
+        NomeCliente.setBounds(280, 140, 200, 30);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 80, 620, 400);
+        Procurar.setBackground(new java.awt.Color(102, 255, 0));
+        Procurar.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
+        Procurar.setForeground(new java.awt.Color(255, 255, 255));
+        Procurar.setText("Procurar");
+        Procurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProcurarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Procurar);
+        Procurar.setBounds(220, 210, 130, 40);
 
         jButton1.setBackground(new java.awt.Color(0, 0, 255));
         jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -159,6 +132,44 @@ public class Clientes_Estoque extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void NomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomeClienteActionPerformed
+
+    }//GEN-LAST:event_NomeClienteActionPerformed
+
+    private void ProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProcurarActionPerformed
+        // TODO add your handling code here:
+       Cliente c1 = new Cliente();
+       c1.setNome(NomeCliente.getText().toUpperCase());
+       String nome = "";
+        File Cliente = new File("Pedidos");
+        File ProcuraCliente[] = Cliente.listFiles();
+        boolean achou = false;
+        for (int i = 0; i < ProcuraCliente.length; i++) {
+            File file = ProcuraCliente[i];
+             nome = file.getName();
+            
+            if(nome.equals(c1.getNome())){
+                achou = true;
+                break;
+                }else{
+                achou = false;
+            }
+            
+        }
+        if (achou == true){
+            JOptionPane.showMessageDialog(null, "Cliente Cadastrado!");
+                int c = JOptionPane.showConfirmDialog(null, "Deseja ver a lista de produtos que este Cliente comprou?");
+                if(c == JOptionPane.YES_OPTION){
+                    new Ver_Lista_Estoque(nome).setVisible(true);
+                    dispose();
+        }
+        }else{
+            JOptionPane.showMessageDialog(null, "Cliente não Cadastrado!", "Alerta", JOptionPane.WARNING_MESSAGE);
+            NomeCliente.setText("");
+        }
+
+    }//GEN-LAST:event_ProcurarActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         new Controle_Estoque().setVisible(true);
@@ -182,13 +193,13 @@ public class Clientes_Estoque extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clientes_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Procurar_Cliente_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clientes_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Procurar_Cliente_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clientes_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Procurar_Cliente_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clientes_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Procurar_Cliente_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -210,17 +221,19 @@ public class Clientes_Estoque extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Clientes_Estoque().setVisible(true);
+                new Procurar_Cliente_Estoque().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabela;
+    private javax.swing.JTextField NomeCliente;
+    private javax.swing.JButton Procurar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }

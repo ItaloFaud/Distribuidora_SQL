@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.Escritório;
 
 
 import Modelo.Produto;
+import Principal.Tela_Inicial;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author Hoope
  */
-public class Cadastro_Pro extends javax.swing.JFrame {
+public class Alterar_Pro extends javax.swing.JFrame {
 
     /**
      * Creates new form Tela_Inicial
@@ -27,7 +28,7 @@ public class Cadastro_Pro extends javax.swing.JFrame {
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
         
-    public Cadastro_Pro() {
+    public Alterar_Pro() {
         initComponents();
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
@@ -56,7 +57,7 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         DataPro = new javax.swing.JTextField();
         MarcaPro = new javax.swing.JTextField();
         NomePro = new javax.swing.JTextField();
-        Cadastrar = new javax.swing.JButton();
+        Alterar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -80,7 +81,7 @@ public class Cadastro_Pro extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cadastro de Produtos");
+        jLabel1.setText("Alterar produto");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(30, 30, 220, 29);
 
@@ -88,19 +89,19 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Quantidade (caixas):");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(80, 200, 140, 21);
+        jLabel3.setBounds(100, 200, 140, 21);
 
         jLabel6.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Código:");
+        jLabel6.setText("Data de Validade:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(100, 380, 50, 21);
+        jLabel6.setBounds(100, 320, 120, 21);
 
         jLabel5.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Marca:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(90, 140, 50, 21);
+        jLabel5.setBounds(100, 140, 50, 21);
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -112,7 +113,7 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Preço:");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(90, 260, 50, 21);
+        jLabel7.setBounds(100, 260, 50, 21);
 
         CaixaPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         CaixaPro.addActionListener(new java.awt.event.ActionListener() {
@@ -159,23 +160,23 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         getContentPane().add(NomePro);
         NomePro.setBounds(300, 80, 200, 30);
 
-        Cadastrar.setBackground(new java.awt.Color(0, 204, 0));
-        Cadastrar.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
-        Cadastrar.setForeground(new java.awt.Color(255, 255, 255));
-        Cadastrar.setText("Cadastrar");
-        Cadastrar.addActionListener(new java.awt.event.ActionListener() {
+        Alterar.setBackground(new java.awt.Color(0, 204, 0));
+        Alterar.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
+        Alterar.setForeground(new java.awt.Color(255, 255, 255));
+        Alterar.setText("Alterar");
+        Alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CadastrarActionPerformed(evt);
+                AlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(Cadastrar);
-        Cadastrar.setBounds(200, 440, 150, 40);
+        getContentPane().add(Alterar);
+        Alterar.setBounds(210, 450, 150, 40);
 
         jLabel8.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Nome:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(90, 80, 50, 21);
+        jLabel8.setBounds(100, 80, 50, 21);
 
         jButton1.setBackground(new java.awt.Color(0, 0, 204));
         jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -191,9 +192,9 @@ public class Cadastro_Pro extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Data de Validade:");
+        jLabel9.setText("Código:");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(90, 320, 120, 21);
+        jLabel9.setBounds(100, 380, 50, 21);
 
         CodPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         CodPro.addActionListener(new java.awt.event.ActionListener() {
@@ -257,16 +258,14 @@ public class Cadastro_Pro extends javax.swing.JFrame {
     
     
     
-    private void CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarActionPerformed
+    private void AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlterarActionPerformed
         // TODO add your handling code here:
-       String ProNome = NomePro.getText().toUpperCase() ;
+       String ProNome = NomePro.getText().toUpperCase();
        String ProMarca = MarcaPro.getText().toUpperCase();
        String ProCaixa = CaixaPro.getText().toUpperCase();
        String ProPreco = PrecoPro.getText().toUpperCase();
        String ProData = DataPro.getText().toUpperCase();
        String ProCod = CodPro.getText().toUpperCase();
-       
-//        System.out.println(ProNome);
         
 //        JOptionPane.showMessageDialog(null, ProNome+"\n"+ProCaixa+"\n"+
 //                ProPreco+"\n"+ProData);
@@ -280,21 +279,22 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         pro.setCodigo(ProCod);
         pro.CriarPro();
         
-        
-        
-        JOptionPane.showMessageDialog(null, "Produto Cadastrado com sucesso");
+        JOptionPane.showMessageDialog(null, "Produto Alterado com sucesso");
         
         NomePro.setText("");
         MarcaPro.setText("");
         DataPro.setText("");
         PrecoPro.setText("");
         CaixaPro.setText("");
-        CodPro.setText("");
+        
+        new Controle_Escritório().setVisible(true);
+        dispose();
+        
 //        
 //        
        
         
-    }//GEN-LAST:event_CadastrarActionPerformed
+    }//GEN-LAST:event_AlterarActionPerformed
 
     private void NomeProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomeProActionPerformed
         // TODO add your handling code here:
@@ -327,14 +327,18 @@ public class Cadastro_Pro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cadastro_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cadastro_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cadastro_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cadastro_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -343,13 +347,13 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cadastro_Pro().setVisible(true);
+                new Alterar_Pro().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cadastrar;
+    private javax.swing.JButton Alterar;
     private javax.swing.JTextField CaixaPro;
     private javax.swing.JTextField CodPro;
     private javax.swing.JTextField DataPro;
