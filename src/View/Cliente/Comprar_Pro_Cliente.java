@@ -6,6 +6,7 @@
 package View.Cliente;
 
 
+import Modelo.Cliente;
 import Modelo.Produto;
 import Principal.Tela_Inicial;
 import java.io.BufferedReader;
@@ -34,149 +35,20 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
         
-    public Comprar_Pro_Cliente(String NCliente) {
+    public Comprar_Pro_Cliente(Cliente c) {
         initComponents();
         setTitle("Distribuidora Ítalo");
         setSize(660, 580);
         setLocationRelativeTo(this);
-        Cliente1.setText(NCliente);
-        
+        Cliente1.setText(c.getNome());
         
     }
 
     private Comprar_Pro_Cliente() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public void Procurar_Cod(String Cod) throws FileNotFoundException{
-        File pro = new File ("Produtos");
-        File Procura[] = pro.listFiles();
-        
-        for (int i = 0; i < Procura.length; i++) {
-            File file = Procura[i];
-            //System.out.println(Procura[i]);
-            FileReader Pros = new FileReader(Procura[i]+"/Codigo.txt");
-            BufferedReader LPros = new BufferedReader(Pros);
-            try {
-                String cod = LPros.readLine();
-                if (cod.equals(Cod)) {
-                FileReader Nome  = new FileReader(Procura[i]+"/Nome.txt");
-                BufferedReader LNome  = new BufferedReader(Nome);
-                String NomeProo = LNome.readLine();
-                
-                FileReader Marca = new FileReader(Procura[i]+"/Marca.txt");
-                BufferedReader LMarca  = new BufferedReader(Marca);
-                String MarcaProo  = LMarca.readLine();
-                
-                FileReader Preco  = new FileReader(Procura[i]+"/Preco.txt");
-                BufferedReader LPreco  = new BufferedReader(Preco);
-                String PrecoProo  = LPreco.readLine();
-                
-                NomePro.setText(NomeProo);
-                MarcaPro.setText(MarcaProo);
-                PrecoPro.setText(PrecoProo);
-                
-                float c = Float.parseFloat(QtnCaixas.getText());
-                float PU = Float.parseFloat(PrecoProo);
-                
-                float PTdaC = c*PU;
-                
-                
-                PrecoTotal.setText((PTdaC)+"");
-                Subtotal.setText((PTdaC)+"");
-                
-//               double p = Double.parseDouble(PrecoProo);
-//               
-//               double c = Double.parseDouble(QtnCaixas.getText());
-//                
-//                double Preco_Total = p*c;
-//                PrecoTotal.setText(toString(Preco_Total));
-//
-//                                      Olharrrrrrrrrrrrrrrr
-                break;
-                
-                
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Comprar_Pro_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            
-        }
-        
-    }
-    
-    public void Comprar(String Cod) throws IOException{
-        File pro = new File ("Pedidos");
-        File Procura[] = pro.listFiles();
-        
-        String Cliente = Cliente1.getText();
-        
-        for (int i = 0; i < Procura.length; i++) {
-            File file = Procura[i];
-            //System.out.println(file);
-            String NomeC = file.getName();
-           
-            if(NomeC.equals(Cliente)){
-                Produto pro1 = new Produto();
-                
-                pro1.setNome(NomePro.getText().toUpperCase()); ;
-                pro1.setMarca(MarcaPro.getText().toUpperCase());
-                int caixasR = Integer.parseInt(QtnCaixas.getText());
-                
-                FileReader Ler_Caixas = new FileReader("Produtos/"+pro1.getNome()+"_"+pro1.getMarca()+"/Caixas.txt");
-                BufferedReader LC = new BufferedReader(Ler_Caixas);
-                int caixas = Integer.parseInt(LC.readLine());
-                        
-                int CR = caixas-caixasR;
-                
-                String CaixasRR = CR+"";
-                
-                FileWriter Cai = new FileWriter("Produtos/"+pro1.getNome()+"_"+pro1.getMarca()+"/Caixas.txt");
-                BufferedWriter CaixasAtuais = new BufferedWriter(Cai);
-                CaixasAtuais.write(CaixasRR);
-                CaixasAtuais.close();
-                Cai.close();
-                
-                File Pro = new File("Pedidos/"+NomeC+"/"+pro1.getNome()+"_"+pro1.getMarca());
-                Pro.mkdir();
-                
-                FileWriter M = new FileWriter("Pedidos/"+NomeC+"/"+pro1.getNome()+"_"+pro1.getMarca()+"/Marca.txt");
-                BufferedWriter EM = new BufferedWriter(M);
-                EM.write(MarcaPro.getText().toUpperCase());
-                EM.close();
-                M.close();
-                
-                FileWriter C = new FileWriter("Pedidos/"+NomeC+"/"+pro1.getNome()+"_"+pro1.getMarca()+"/Caixas.txt");
-                BufferedWriter EC = new BufferedWriter(C);
-                EC.write(QtnCaixas.getText().toUpperCase());
-                EC.close();
-                C.close();
-                
-                FileWriter PT = new FileWriter("Pedidos/"+NomeC+"/"+pro1.getNome()+"_"+pro1.getMarca()+"/Preco_Total.txt");
-                BufferedWriter EPT = new BufferedWriter(PT);
-                EPT.write(PrecoTotal.getText().toUpperCase());
-                EPT.close();
-                PT.close();
-                
-                FileWriter SubTotal = new FileWriter("Pedidos/"+NomeC+"/"+"/Sub_Total.txt");
-                BufferedWriter ESb = new BufferedWriter(SubTotal);
-                ESb.write(Subtotal.getText().toUpperCase());
-                ESb.close();
-                SubTotal.close();
-                
-                
-              
-                
-                break;
-            }
-            
-            
-           
-           
-            
-        }
-    }
+
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -398,31 +270,6 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
 
     private void ComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprarActionPerformed
         // TODO add your handling code here:
-        String cod = CodPro.getText();
-        int Conf = JOptionPane.showConfirmDialog(null, "Você deseja comprar este produto?");
-        if(Conf == JOptionPane.YES_OPTION){
-        try {
-            Comprar(cod);
-            CodPro.setText("");
-        QtnCaixas.setText("");
-        NomePro.setText("");
-        MarcaPro.setText("");
-        PrecoPro.setText("");
-        PrecoTotal.setText("");
-        new Comprar_Pro_Cliente2(Cliente1.getText(),Subtotal.getText()).setVisible(true);
-        dispose();
-        } catch (IOException ex) {
-            Logger.getLogger(Comprar_Pro_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        }else{
-         CodPro.setText("");
-        QtnCaixas.setText("");
-        NomePro.setText("");
-        MarcaPro.setText("");
-        PrecoPro.setText("");
-        PrecoTotal.setText("");
-        Subtotal.setText("");
-        }
         
         
         
@@ -430,12 +277,7 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
 
     private void QtnCaixasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QtnCaixasActionPerformed
         // TODO add your handling code here:
-        String Codd = CodPro.getText();
-        try {
-            Procurar_Cod(Codd);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Comprar_Pro_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        JHSDJASK
     }//GEN-LAST:event_QtnCaixasActionPerformed
 
     private void SubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubtotalActionPerformed
@@ -459,7 +301,7 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_PrecoProActionPerformed
 
     private void CodProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodProActionPerformed
-        
+       JOptionPane.showMessageDialog(null, "Insira a quantidade de caixas e aperte ENTER", "Distribuidora Ítalo", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_CodProActionPerformed
 
@@ -471,42 +313,6 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
 
     private void FimCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FimCompraActionPerformed
         // TODO add your handling code here:
-        String Codd = CodPro.getText();
-        int cc = JOptionPane.showConfirmDialog(null,"Você deseja comprar este produto?");
-        if(cc == JOptionPane.YES_OPTION){
-            try {
-                Comprar(Codd);
-            } catch (IOException ex) {
-                Logger.getLogger(Comprar_Pro_Cliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            CodPro.setText("");
-        QtnCaixas.setText("");
-        NomePro.setText("");
-        MarcaPro.setText("");
-        PrecoPro.setText("");
-        PrecoTotal.setText("");
-        int c = JOptionPane.showConfirmDialog(null, "Você deseja terminar sua compra?");
-        if(c == JOptionPane.YES_OPTION){
-            DecimalFormat df = new DecimalFormat("##.##");
-            float SubTotal = Float.parseFloat(Subtotal.getText());
-            String Pagar = JOptionPane.showInputDialog(null,"O total da compra foi de R$"+df.format(SubTotal));
-            float troco = Float.parseFloat(Pagar) - SubTotal;
-            
-            if(troco == 0){
-                JOptionPane.showMessageDialog(null, "Obrigado pela preferência\n entre em contato com o nosso escritório"
-                        + " para marcar a sua entrega");
-                new Tela_Inicial().setVisible(true);
-                dispose();
-            }else{
-                JOptionPane.showMessageDialog(null,"O seu troco é de R$"+df.format(troco));
-                JOptionPane.showMessageDialog(null, "Obrigado pela preferência\n entre em contato com o nosso escritório"
-                        + " para marcar a sua entrega");
-                new Tela_Inicial().setVisible(true);
-                dispose();
-            }
-            
-        }
-        }
     }//GEN-LAST:event_FimCompraActionPerformed
 
     /**

@@ -5,6 +5,8 @@
  */
 package Principal;
 
+import Controller.ClienteDAO;
+import Controller.Conexao;
 import Principal.Login_Funn;
 import View.Cliente.Estoque_Armazem;
 import View.Cliente.Comprar_Pro_Cliente;
@@ -12,6 +14,7 @@ import Modelo.Cliente;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 
 /**
@@ -142,31 +145,22 @@ public class Tela_Inicial extends javax.swing.JFrame {
         int Per = JOptionPane.showConfirmDialog(null, "Você já anotou os códigos dos produtos que deseja?");
         
         if (Per == JOptionPane.YES_OPTION) {
-            String NCliente = JOptionPane.showInputDialog("Informe seu nome");
-            File Clientes = new File("Pedidos");
-            File CadasClientes[] = Clientes.listFiles();
+            Connection con = Conexao.AbrirConexao();
+            ClienteDAO sql = new ClienteDAO(con);
+            Cliente c = new Cliente();
             
+            c.setNome(JOptionPane.showInputDialog("Informe seu nome"));
+            c.setCpf(JOptionPane.showInputDialog("Informe seu CPF"));
             
-            if(NCliente.equals("")){
-                JOptionPane.showMessageDialog(null, "Informe um nome para continuar", "Alerta",JOptionPane.WARNING_MESSAGE );
+            if(sql.Login(c) == true){
+                JOptionPane.showMessageDialog(null, "CPF usável ","Distribuidora Ítalo", JOptionPane.INFORMATION_MESSAGE);
+                new Comprar_Pro_Cliente(c).setVisible(true);
+                dispose();
             }else{
-            Cliente c1 = new Cliente();
-            c1.setNome(NCliente);
-            
-            File pasta = new File ("Pedidos");
-            File CPasta = new File ("Pedidos/"+c1.getNome().toUpperCase());
-            pasta.mkdir();
-            CPasta.mkdir();
-            
-            
-            
-            new Comprar_Pro_Cliente(c1.getNome().toUpperCase()).setVisible(true);
-            dispose();    
+                JOptionPane.showMessageDialog(null, "CPF já em uso","Distribuidora Ítalo", JOptionPane.INFORMATION_MESSAGE);
             }
             
-        }else if (Per == JOptionPane.NO_OPTION){
-            JOptionPane.showMessageDialog(null, "Clique no botão (ESTOQUE) abaixo deste para conferir\n preços "
-                    + "códigos, marcas e entre outros");
+               
         }
         
     }//GEN-LAST:event_ComprarActionPerformed

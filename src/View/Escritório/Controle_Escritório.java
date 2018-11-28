@@ -45,7 +45,8 @@ public class Controle_Escritório extends javax.swing.JFrame {
         Estoque = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         CadPro = new javax.swing.JButton();
-        AltPro = new javax.swing.JButton();
+        DeletarPro = new javax.swing.JButton();
+        AltPro1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         Pedidos = new javax.swing.JButton();
@@ -66,7 +67,7 @@ public class Controle_Escritório extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Estoque);
-        Estoque.setBounds(430, 140, 170, 29);
+        Estoque.setBounds(430, 170, 170, 29);
 
         jButton6.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jButton6.setText("Tela Inicial");
@@ -87,18 +88,29 @@ public class Controle_Escritório extends javax.swing.JFrame {
             }
         });
         getContentPane().add(CadPro);
-        CadPro.setBounds(430, 60, 170, 29);
+        CadPro.setBounds(430, 50, 170, 29);
 
-        AltPro.setBackground(new java.awt.Color(255, 255, 255));
-        AltPro.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        AltPro.setText("Alterar Produtos");
-        AltPro.addActionListener(new java.awt.event.ActionListener() {
+        DeletarPro.setBackground(new java.awt.Color(255, 255, 255));
+        DeletarPro.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        DeletarPro.setText("Deletar Produtos");
+        DeletarPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AltProActionPerformed(evt);
+                DeletarProActionPerformed(evt);
             }
         });
-        getContentPane().add(AltPro);
-        AltPro.setBounds(430, 100, 170, 29);
+        getContentPane().add(DeletarPro);
+        DeletarPro.setBounds(430, 130, 170, 29);
+
+        AltPro1.setBackground(new java.awt.Color(255, 255, 255));
+        AltPro1.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        AltPro1.setText("Alterar Produtos");
+        AltPro1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AltPro1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AltPro1);
+        AltPro1.setBounds(430, 90, 170, 29);
 
         jLabel3.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -121,7 +133,7 @@ public class Controle_Escritório extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Pedidos);
-        Pedidos.setBounds(430, 220, 170, 29);
+        Pedidos.setBounds(430, 250, 170, 29);
 
         Clientes1.setBackground(new java.awt.Color(255, 255, 255));
         Clientes1.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
@@ -132,7 +144,7 @@ public class Controle_Escritório extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Clientes1);
-        Clientes1.setBounds(430, 180, 170, 29);
+        Clientes1.setBounds(430, 210, 170, 29);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -159,11 +171,11 @@ public class Controle_Escritório extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_CadProActionPerformed
 
-    private void AltProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltProActionPerformed
+    private void DeletarProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarProActionPerformed
         // TODO add your handling code here:
-        new Procura_Pro().setVisible(true);
+        new Excluir_Pro().setVisible(true);
         dispose();
-    }//GEN-LAST:event_AltProActionPerformed
+    }//GEN-LAST:event_DeletarProActionPerformed
 
     private void PedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PedidosActionPerformed
         // TODO add your handling code here:
@@ -176,6 +188,10 @@ public class Controle_Escritório extends javax.swing.JFrame {
         new Clientes_Escritório().setVisible(true);
         dispose();
     }//GEN-LAST:event_Clientes1ActionPerformed
+
+    private void AltPro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltPro1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AltPro1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,9 +232,10 @@ public class Controle_Escritório extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AltPro;
+    private javax.swing.JButton AltPro1;
     private javax.swing.JButton CadPro;
     private javax.swing.JButton Clientes1;
+    private javax.swing.JButton DeletarPro;
     private javax.swing.JButton Estoque;
     private javax.swing.JButton Pedidos;
     private javax.swing.JButton jButton6;

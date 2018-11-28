@@ -38,69 +38,6 @@ public class Procura_Pro extends javax.swing.JFrame {
         
     }
     
-    public void Procurar(String Nome,String Marca){      
-      File pasta = new File("Produtos");
-      File produtos[] = pasta.listFiles();
-      boolean achou = false;
-      String NPro = "";
-        //System.out.println(produtos.length);
-      
-       
-            String ProcuraPor = Nome+"_"+Marca;
-            
-            for (int i = 0; i <= produtos.length; i++) {
-                File pro = produtos[i]; 
-                NPro = pro.getName();
-               
-                if (NPro.equals(ProcuraPor) ) {
-                    achou = true;
-                    break;
-                }else {
-               achou = false;
-       }
-                
-            }
-            
-        
-        
-        if(achou == false){
-            JOptionPane.showMessageDialog(null, "Produto não encontrado","Alerta", JOptionPane.WARNING_MESSAGE);
-            NomePro.setText("");
-            MarcaPro.setText("");
-            
-                   
-        }else{
-            JOptionPane.showMessageDialog(null, "Produto Encontrado");
-                    int confirmaAlt = JOptionPane.showConfirmDialog(null, "Deseja alterar este produto");
-                    
-                    if(confirmaAlt == JOptionPane.YES_OPTION){
-                        File Produto = new File("Produtos/"+Nome+"_"+Marca);
-                        
-                        File NomePro = new File("Produtos/"+Nome+"_"+Marca+"/Nome.txt");
-                        File MarcaPro = new File("Produtos/"+Nome+"_"+Marca+"/Marca.txt");
-                        File PrecoPro = new File("Produtos/"+Nome+"_"+Marca+"/Preco.txt");
-                        File CaixasPro = new File("Produtos/"+Nome+"_"+Marca+"/Caixas.txt");
-                        File DataPro = new File("Produtos/"+Nome+"_"+Marca+"/Data.txt");
-                        File CodPro = new File("Produtos/"+Nome+"_"+Marca+"/Codigo.txt");
-                        
-                        
-                        NomePro.delete();
-                        PrecoPro.delete();
-                        CaixasPro.delete();
-                        DataPro.delete();
-                        MarcaPro.delete();
-                        CodPro.delete();
-                        Produto.delete();
-                        
-                        new Alterar_Pro().setVisible(true);
-                        dispose();
-                        
-                    }else if (confirmaAlt == JOptionPane.NO_OPTION) {
-                     NomePro.setText("");
-                     MarcaPro.setText("");   
-                    }
-        } 
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -113,12 +50,7 @@ public class Procura_Pro extends javax.swing.JFrame {
 
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        MarcaPro = new javax.swing.JTextField();
-        NomePro = new javax.swing.JTextField();
-        Procurar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -143,53 +75,11 @@ public class Procura_Pro extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(30, 30, 220, 29);
 
-        jLabel5.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Marca:");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(100, 180, 50, 21);
-
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Distribuidora Ítalo");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(10, 510, 126, 21);
-
-        MarcaPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        MarcaPro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MarcaProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(MarcaPro);
-        MarcaPro.setBounds(300, 180, 200, 30);
-
-        NomePro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        NomePro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NomeProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(NomePro);
-        NomePro.setBounds(300, 120, 200, 30);
-
-        Procurar.setBackground(new java.awt.Color(0, 204, 0));
-        Procurar.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
-        Procurar.setForeground(new java.awt.Color(255, 255, 255));
-        Procurar.setText("Procurar");
-        Procurar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProcurarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Procurar);
-        Procurar.setBounds(220, 250, 150, 40);
-
-        jLabel8.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Nome:");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(100, 120, 50, 21);
 
         jButton1.setBackground(new java.awt.Color(0, 0, 204));
         jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -233,10 +123,6 @@ public class Procura_Pro extends javax.swing.JFrame {
     
     
     
-    private void MarcaProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MarcaProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MarcaProActionPerformed
-
     
     
     
@@ -244,31 +130,6 @@ public class Procura_Pro extends javax.swing.JFrame {
     
     
     
-    private void ProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProcurarActionPerformed
-        // TODO add your handling code here:
-       String Nome = NomePro.getText().toUpperCase();
-       String Marca = MarcaPro.getText().toUpperCase();
-
-      //  JOptionPane.showMessageDialog(null, "Procurando...");
-        
-        Procurar(Nome,Marca);
-
-        
-        
-        
-        
-        //JOptionPane.showMessageDialog(null, "Produto Cadastrado com sucesso");
-        
-//        
-//        
-       
-        
-    }//GEN-LAST:event_ProcurarActionPerformed
-
-    private void NomeProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomeProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NomeProActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         new Controle_Escritório().setVisible(true);
@@ -326,15 +187,10 @@ public class Procura_Pro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField MarcaPro;
-    private javax.swing.JTextField NomePro;
-    private javax.swing.JButton Procurar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
 }

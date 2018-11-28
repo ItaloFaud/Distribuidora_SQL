@@ -5,6 +5,8 @@
  */
 package Principal;
 
+import View.Escritório.Cadastro_Pro;
+
 /**
  *
  * @author Hoope
@@ -16,7 +18,7 @@ public class Distribuidora_SQL {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    new Tela_Inicial().setVisible(true);
+    new Cadastro_Pro().setVisible(true);
     }
     
 }

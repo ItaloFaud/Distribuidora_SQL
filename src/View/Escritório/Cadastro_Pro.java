@@ -6,11 +6,14 @@
 package View.Escritório;
 
 
+import Controller.Conexao;
+import Controller.ProdutoDAO;
 import Modelo.Produto;
 import Principal.Tela_Inicial;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 
 
@@ -174,7 +177,7 @@ public class Cadastro_Pro extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Nome:");
+        jLabel8.setText("Tipo:");
         getContentPane().add(jLabel8);
         jLabel8.setBounds(90, 80, 50, 21);
 
@@ -196,6 +199,7 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         getContentPane().add(jLabel9);
         jLabel9.setBounds(90, 320, 120, 21);
 
+        CodPro.setEditable(false);
         CodPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         CodPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,30 +264,23 @@ public class Cadastro_Pro extends javax.swing.JFrame {
     
     private void CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarActionPerformed
         // TODO add your handling code here:
-       String ProNome = NomePro.getText().toUpperCase() ;
-       String ProMarca = MarcaPro.getText().toUpperCase();
-       String ProCaixa = CaixaPro.getText().toUpperCase();
-       String ProPreco = PrecoPro.getText().toUpperCase();
-       String ProData = DataPro.getText().toUpperCase();
-       String ProCod = CodPro.getText().toUpperCase();
-       
-//        System.out.println(ProNome);
+       Connection con = Conexao.AbrirConexao();
+       ProdutoDAO sql = new ProdutoDAO(con);
+       Produto pro = new Produto();
+       String ProNome = NomePro.getText();
+       String ProMarca = MarcaPro.getText();
+       String ProCaixa = CaixaPro.getText();
+       String ProPreco = PrecoPro.getText();
+       String ProData = DataPro.getText();
+       //String ProCod = CodPro.getText();
         
-//        JOptionPane.showMessageDialog(null, ProNome+"\n"+ProCaixa+"\n"+
-//                ProPreco+"\n"+ProData);
-
-        Produto pro = new Produto();
-        pro.setNome(ProNome);
+        pro.setTipo(ProNome);
         pro.setMarca(ProMarca);
-        pro.setCaixas(ProCaixa);
+        pro.setCaixas(Integer.parseInt(ProCaixa));
         pro.setPreco(ProPreco);
         pro.setData(ProData);
-        pro.setCodigo(ProCod);
-        pro.CriarPro();
-        
-        
-        
-        JOptionPane.showMessageDialog(null, "Produto Cadastrado com sucesso");
+   
+        JOptionPane.showMessageDialog(null, sql.Cadastro(pro));
         
         NomePro.setText("");
         MarcaPro.setText("");
@@ -291,10 +288,6 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         PrecoPro.setText("");
         CaixaPro.setText("");
         CodPro.setText("");
-//        
-//        
-       
-        
     }//GEN-LAST:event_CadastrarActionPerformed
 
     private void NomeProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomeProActionPerformed

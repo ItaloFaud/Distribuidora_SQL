@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author Hoope
  */
-public class Alterar_Pro extends javax.swing.JFrame {
+public class Excluir_Pro extends javax.swing.JFrame {
 
     /**
      * Creates new form Tela_Inicial
@@ -28,7 +28,7 @@ public class Alterar_Pro extends javax.swing.JFrame {
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
         
-    public Alterar_Pro() {
+    public Excluir_Pro() {
         initComponents();
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
@@ -276,9 +276,8 @@ public class Alterar_Pro extends javax.swing.JFrame {
         pro.setCaixas(Integer.parseInt(ProCaixa));
         pro.setPreco(ProPreco);
         pro.setData(ProData);
-        //pro.setCodigo(ProCod);
         
-        //Alterar
+       //Excluir 
         JOptionPane.showMessageDialog(null, "Produto Alterado com sucesso");
         
         NomePro.setText("");
@@ -327,14 +326,22 @@ public class Alterar_Pro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Excluir_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Excluir_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Excluir_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Excluir_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -347,7 +354,7 @@ public class Alterar_Pro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Alterar_Pro().setVisible(true);
+                new Excluir_Pro().setVisible(true);
             }
         });
     }
