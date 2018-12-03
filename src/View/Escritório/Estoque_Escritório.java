@@ -124,13 +124,13 @@ public class Estoque_Escritório extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(30, 70, 600, 360);
+        jScrollPane2.setBounds(30, 70, 600, 410);
 
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Estoque");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 40, 78, 29);
+        jLabel1.setBounds(30, 30, 78, 29);
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

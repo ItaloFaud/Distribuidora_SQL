@@ -6,6 +6,9 @@
 package View.Estoque;
 
 
+import Controller.Conexao;
+import Controller.ProdutoDAO;
+import Modelo.Produto;
 import View.Estoque.Controle_Estoque;
 import Principal.Tela_Inicial;
 import java.io.BufferedReader;
@@ -13,6 +16,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -37,73 +43,33 @@ public class Estoque_Estoque extends javax.swing.JFrame {
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
         setLocationRelativeTo(this);
-       Produtos();
-        Caixas();
+        AtualizaTable();
         
     }
     
-    public void Produtos(){
-        DefaultTableModel tabela = (DefaultTableModel) Tabela.getModel();
+    public void AtualizaTable(){
+        Connection con = Conexao.AbrirConexao();
+        ProdutoDAO sql = new ProdutoDAO(con);
         
-        File Pasta = new File("Produtos");
-        File tam[] = Pasta.listFiles();
-        
-        if (tam != null) {
-        String pros = "";
-        String caixas = "";
-        String Preco = "";
-        String Cod = "";
-        
-        int pos = 1;
-            for (int i = 0; i < tam.length; i++) {
-                File file = tam[i];
-                pros =pos+"."+file.getName();
-                
-                
-                //File qtn = 
-            
-            try {
-                FileReader filee = new FileReader(tam[i]+"/Caixas.txt");
-                BufferedReader c = new BufferedReader(filee);
-                
-                FileReader preco = new FileReader(tam[i]+"/Preco.txt");
-                BufferedReader Lpreco = new BufferedReader(preco);
-                
-                FileReader codigo = new FileReader(tam[i]+"/Codigo.txt");
-                BufferedReader Lcodigo = new BufferedReader(codigo);
-                
-                
-                try {
-                    String numC = c.readLine();
-                    caixas = pos+"."+numC;
-                    
-                    String PPreco = Lpreco.readLine();
-                    Preco = pos+"."+PPreco;
-                    
-                    String codd = Lcodigo.readLine();
-                    Cod = pos+"."+codd;
-                    
-                    
-                } catch (IOException ex) {
-                   
-                }
-            } catch (FileNotFoundException ex) {
-                
-            }
-            Object DadosPros[] = {pros,caixas,Preco,Cod};
-            tabela.addRow(DadosPros);
-            pos++;
-            }
-        //CampoTxt.setText(pros);
-        
+        List<Produto> lista = new ArrayList<>();
+        lista = sql.Consulta();
+        DefaultTableModel tbm = (DefaultTableModel) jTable2.getModel();
+        while(tbm.getRowCount() > 0){
+            tbm.removeRow(0);
         }
-        
-        
-          
-    }
-    
-    public void Caixas(){
-        
+        int i = 0;
+        for (Produto tab : lista) {
+            //Object object = arr[j];
+            tbm.addRow(new String[1]);
+            jTable2.setValueAt(tab.getId(), i, 0);
+            jTable2.setValueAt(tab.getTipo(), i, 1);
+            jTable2.setValueAt(tab.getMarca(), i, 2);
+            jTable2.setValueAt(tab.getCaixas(),i,3);
+            jTable2.setValueAt(tab.getPreco(),i,4);
+            jTable2.setValueAt(tab.getData(),i,5);
+            i++; 
+        }
+        Conexao.FecharConexao(con);
     }
 
     /**
@@ -118,9 +84,9 @@ public class Estoque_Estoque extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabela = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -142,13 +108,32 @@ public class Estoque_Estoque extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Estoque");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 40, 78, 29);
+        jLabel1.setBounds(30, 30, 78, 29);
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Distribuidora Ítalo");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(10, 510, 126, 21);
+
+        jTable2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Tipo", "Marca", "Caixas", "Preço", "Data de Validade"
+            }
+        ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(30, 70, 600, 420);
 
         jButton1.setBackground(new java.awt.Color(0, 0, 255));
         jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -161,20 +146,6 @@ public class Estoque_Estoque extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1);
         jButton1.setBounds(400, 500, 110, 30);
-
-        Tabela.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        Tabela.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Produtos_Marcas", "Caixas em estoque", "Preço da Caixa", "Código"
-            }
-        ));
-        jScrollPane1.setViewportView(Tabela);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 80, 620, 400);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -194,6 +165,10 @@ public class Estoque_Estoque extends javax.swing.JFrame {
         new Controle_Estoque().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -294,12 +269,12 @@ public class Estoque_Estoque extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabela;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

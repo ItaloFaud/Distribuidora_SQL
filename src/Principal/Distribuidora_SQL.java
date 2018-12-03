@@ -20,7 +20,7 @@ public class Distribuidora_SQL {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    new Controle_Escritório().setVisible(true);
+    new Login_Funn().setVisible(true);
     }
     
 }

@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Principal;
+package View.Admin;
 
 
-import View.Estoque.Controle_Estoque;
-import View.Escritório.Controle_Escritório;
+import Principal.Tela_Inicial;
+import Principal.Tela_Inicial;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Hoope
  */
-public class Tipo_Fun extends javax.swing.JFrame {
+public class AdministracaoGeral extends javax.swing.JFrame {
 
     /**
      * Creates new form Tela_Inicial
@@ -24,11 +24,10 @@ public class Tipo_Fun extends javax.swing.JFrame {
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
         
-    public Tipo_Fun() {
+    public AdministracaoGeral() {
         initComponents();
-       // setSize(lar, alt);
-        setSize(670,580);
         setTitle("Distribuidora Ítalo");
+        setSize(670, 580);
         setLocationRelativeTo(this);
         
     }
@@ -45,10 +44,11 @@ public class Tipo_Fun extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Estoque = new javax.swing.JButton();
+        Estoque1 = new javax.swing.JButton();
+        Estoque2 = new javax.swing.JButton();
+        Estoque3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,51 +64,69 @@ public class Tipo_Fun extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(520, 500, 130, 29);
+        jButton2.setBounds(530, 500, 120, 29);
 
-        jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Qual tipo de funcionário é você? ");
+        jLabel1.setText("Distribuidora Ítalo");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(70, 40, 510, 50);
+        jLabel1.setBounds(10, 510, 126, 21);
 
-        jLabel3.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Estoque");
+        jLabel3.setText("Administração Geral");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(450, 390, 52, 21);
+        jLabel3.setBounds(30, 80, 200, 29);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/homen_escritorio.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Estoque.setBackground(new java.awt.Color(255, 255, 255));
+        Estoque.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        Estoque.setText("Alterar funcionário");
+        Estoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                EstoqueActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(90, 170, 220, 200);
+        getContentPane().add(Estoque);
+        Estoque.setBounds(430, 180, 170, 29);
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/homen_palete.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Estoque1.setBackground(new java.awt.Color(255, 255, 255));
+        Estoque1.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        Estoque1.setText("Ver funcionários");
+        Estoque1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                Estoque1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(350, 170, 230, 200);
+        getContentPane().add(Estoque1);
+        Estoque1.setBounds(430, 220, 170, 29);
 
-        jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
+        Estoque2.setBackground(new java.awt.Color(255, 255, 255));
+        Estoque2.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        Estoque2.setText("Deletar funcionário");
+        Estoque2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Estoque2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Estoque2);
+        Estoque2.setBounds(430, 260, 170, 29);
+
+        Estoque3.setBackground(new java.awt.Color(255, 255, 255));
+        Estoque3.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        Estoque3.setText("Cadastrar funcionário");
+        Estoque3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Estoque3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Estoque3);
+        Estoque3.setBounds(430, 140, 170, 29);
+
+        jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Distribuidora Ítalo");
+        jLabel4.setText("Bem-Vindo");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 510, 126, 21);
-
-        jLabel5.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Escritório");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(170, 390, 59, 21);
+        jLabel4.setBounds(30, 40, 200, 29);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -123,27 +141,23 @@ public class Tipo_Fun extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void EstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstoqueActionPerformed
         // TODO add your handling code here:
-        int confirma = JOptionPane.showConfirmDialog(null, "Você tem certeza?");
-        if (confirma == JOptionPane.YES_OPTION) {
-             new Controle_Escritório().setVisible(true);
-           // JOptionPane.showMessageDialog(null, "Escritorio");
-            dispose();
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_EstoqueActionPerformed
+
+    private void Estoque1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Estoque1ActionPerformed
         // TODO add your handling code here:
-        int confirma = JOptionPane.showConfirmDialog(null, "Você tem certeza?");
-        if (confirma == JOptionPane.YES_OPTION) {
-            //Controle Funcionário Escritório
-            new Controle_Estoque().setVisible(true);
-            dispose();
-            //JOptionPane.showMessageDialog(null, "Estoque");
-            
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_Estoque1ActionPerformed
+
+    private void Estoque2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Estoque2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Estoque2ActionPerformed
+
+    private void Estoque3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Estoque3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Estoque3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,13 +176,13 @@ public class Tipo_Fun extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tipo_Fun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministracaoGeral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tipo_Fun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministracaoGeral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tipo_Fun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministracaoGeral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tipo_Fun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministracaoGeral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -178,19 +192,20 @@ public class Tipo_Fun extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Tipo_Fun().setVisible(true);
+                new AdministracaoGeral().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Estoque;
+    private javax.swing.JButton Estoque1;
+    private javax.swing.JButton Estoque2;
+    private javax.swing.JButton Estoque3;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,7 +6,14 @@
 package Principal;
 
 
-import Principal.Tipo_Fun;
+
+import Controller.Conexao;
+import Controller.FuncionárioDAO;
+import Modelo.Funcionário;
+import View.Admin.AdministracaoGeral;
+import View.Escritório.Controle_Escritório;
+import View.Estoque.Controle_Estoque;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 
 /**
@@ -116,18 +123,30 @@ public class Login_Funn extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        //Arrumar Login
        String Usu = jTextField1.getText();
        String Sen = jPasswordField1.getText();
        
-        if (Usu.equals("admin") && Sen.equals("admin")) {
-            JOptionPane.showMessageDialog(null, "Usuário e senha corretos");
-            new Tipo_Fun().setVisible(true);
+        Connection con = Conexao.AbrirConexao();
+        FuncionárioDAO sql = new FuncionárioDAO(con);
+        
+        Funcionário f = new Funcionário();
+        f.setUser(Usu);
+        f.setSenha(Sen);
+        
+        int tipo = sql.Logar(f);
+        
+        if(tipo == 1){
+            new Controle_Estoque().setVisible(true);
             dispose();
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuário e senha incorretos");
-            jTextField1.setText("");
-            jPasswordField1.setText("");
+        }else if(tipo == 2){
+            new Controle_Escritório().setVisible(true);
+            dispose();
+        }else if(tipo == 3){
+            new AdministracaoGeral().setVisible(true);
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(null,"Funcionário inexiste","Distribuidora Ítalo",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
