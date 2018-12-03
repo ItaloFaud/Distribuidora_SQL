@@ -191,6 +191,8 @@ public class Controle_Escritório extends javax.swing.JFrame {
 
     private void AltPro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltPro1ActionPerformed
         // TODO add your handling code here:
+        new Procura_Pro().setVisible(true);
+        dispose();
     }//GEN-LAST:event_AltPro1ActionPerformed
 
     /**

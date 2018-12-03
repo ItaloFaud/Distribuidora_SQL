@@ -13,7 +13,7 @@ public class Produto {
     private int caixas;
     private String preco;
     private String data;
-    private String codigo;
+    
     
     public int getId() {
         return id;
@@ -23,13 +23,6 @@ public class Produto {
         this.id = id;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
     
 
     public String getMarca() {

@@ -6,12 +6,18 @@
 package View.Escritório;
 
 
+import Controller.Conexao;
+import Controller.ProdutoDAO;
 import Modelo.Produto;
 import Principal.Tela_Inicial;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -33,7 +39,32 @@ public class Excluir_Pro extends javax.swing.JFrame {
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
         setLocationRelativeTo(this);
+        AtualizaTable();
+    }
+    
+    public void AtualizaTable(){
+        Connection con = Conexao.AbrirConexao();
+        ProdutoDAO sql = new ProdutoDAO(con);
         
+        List<Produto> lista = new ArrayList<>();
+        lista = sql.Consulta();
+        DefaultTableModel tbm = (DefaultTableModel) jTable2.getModel();
+        while(tbm.getRowCount() > 0){
+            tbm.removeRow(0);
+        }
+        int i = 0;
+        for (Produto tab : lista) {
+            //Object object = arr[j];
+            tbm.addRow(new String[1]);
+            jTable2.setValueAt(tab.getId(), i, 0);
+            jTable2.setValueAt(tab.getTipo(), i, 1);
+            jTable2.setValueAt(tab.getMarca(), i, 2);
+            jTable2.setValueAt(tab.getCaixas(),i,3);
+            jTable2.setValueAt(tab.getPreco(),i,4);
+            jTable2.setValueAt(tab.getData(),i,5);
+            i++; 
+        }
+        Conexao.FecharConexao(con);
     }
 
     /**
@@ -47,21 +78,10 @@ public class Excluir_Pro extends javax.swing.JFrame {
 
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        CaixaPro = new javax.swing.JTextField();
-        PrecoPro = new javax.swing.JTextField();
-        DataPro = new javax.swing.JTextField();
-        MarcaPro = new javax.swing.JTextField();
-        NomePro = new javax.swing.JTextField();
-        Alterar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        CodPro = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -81,27 +101,9 @@ public class Excluir_Pro extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Alterar produto");
+        jLabel1.setText("Excluir produto");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(30, 30, 220, 29);
-
-        jLabel3.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Quantidade (caixas):");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(100, 200, 140, 21);
-
-        jLabel6.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Data de Validade:");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(100, 320, 120, 21);
-
-        jLabel5.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Marca:");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(100, 140, 50, 21);
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -109,74 +111,24 @@ public class Excluir_Pro extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(10, 510, 126, 21);
 
-        jLabel7.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Preço:");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(100, 260, 50, 21);
+        jTable2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        CaixaPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        CaixaPro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CaixaProActionPerformed(evt);
+            },
+            new String [] {
+                "Código", "Tipo", "Marca", "Caixas", "Preço", "Data de Validade"
+            }
+        ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
             }
         });
-        getContentPane().add(CaixaPro);
-        CaixaPro.setBounds(300, 200, 200, 30);
+        jScrollPane2.setViewportView(jTable2);
 
-        PrecoPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        PrecoPro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PrecoProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(PrecoPro);
-        PrecoPro.setBounds(300, 260, 200, 30);
-
-        DataPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        DataPro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DataProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(DataPro);
-        DataPro.setBounds(300, 320, 200, 30);
-
-        MarcaPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        MarcaPro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MarcaProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(MarcaPro);
-        MarcaPro.setBounds(300, 140, 200, 30);
-
-        NomePro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        NomePro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NomeProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(NomePro);
-        NomePro.setBounds(300, 80, 200, 30);
-
-        Alterar.setBackground(new java.awt.Color(0, 204, 0));
-        Alterar.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
-        Alterar.setForeground(new java.awt.Color(255, 255, 255));
-        Alterar.setText("Alterar");
-        Alterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AlterarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Alterar);
-        Alterar.setBounds(210, 450, 150, 40);
-
-        jLabel8.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Nome:");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(100, 80, 50, 21);
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(30, 70, 600, 360);
 
         jButton1.setBackground(new java.awt.Color(0, 0, 204));
         jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -189,21 +141,6 @@ public class Excluir_Pro extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1);
         jButton1.setBounds(530, 454, 120, 30);
-
-        jLabel9.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Código:");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(100, 380, 50, 21);
-
-        CodPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        CodPro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CodProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CodPro);
-        CodPro.setBounds(300, 380, 200, 30);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -235,22 +172,6 @@ public class Excluir_Pro extends javax.swing.JFrame {
     
     
     
-    private void DataProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DataProActionPerformed
-
-    private void MarcaProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MarcaProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MarcaProActionPerformed
-
-    private void CaixaProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaixaProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CaixaProActionPerformed
-
-    private void PrecoProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrecoProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PrecoProActionPerformed
-
     
     
     
@@ -258,56 +179,38 @@ public class Excluir_Pro extends javax.swing.JFrame {
     
     
     
-    private void AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlterarActionPerformed
-        // TODO add your handling code here:
-       String ProNome = NomePro.getText();
-       String ProMarca = MarcaPro.getText();
-       String ProCaixa = CaixaPro.getText();
-       String ProPreco = PrecoPro.getText();
-       String ProData = DataPro.getText();
-       //String ProCod = CodPro.getText();
-        
-//        JOptionPane.showMessageDialog(null, ProNome+"\n"+ProCaixa+"\n"+
-//                ProPreco+"\n"+ProData);
-
-        Produto pro = new Produto();
-        pro.setTipo(ProNome);
-        pro.setMarca(ProMarca);
-        pro.setCaixas(Integer.parseInt(ProCaixa));
-        pro.setPreco(ProPreco);
-        pro.setData(ProData);
-        
-       //Excluir 
-        JOptionPane.showMessageDialog(null, "Produto Alterado com sucesso");
-        
-        NomePro.setText("");
-        MarcaPro.setText("");
-        DataPro.setText("");
-        PrecoPro.setText("");
-        CaixaPro.setText("");
-        
-        new Controle_Escritório().setVisible(true);
-        dispose();
-        
-//        
-//        
-       
-        
-    }//GEN-LAST:event_AlterarActionPerformed
-
-    private void NomeProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomeProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NomeProActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         new Controle_Escritório().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void CodProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodProActionPerformed
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_CodProActionPerformed
+        int linha = jTable2.getSelectedRow();
+        int id = (int) jTable2.getValueAt(linha, 0);
+        
+        Produto a = new Produto();
+        a.setId(id);
+        
+        int confirm = JOptionPane.showConfirmDialog(null,"Deseja mesmo excluir o produto de Código ("+a.getId()+")","Distribuidora",JOptionPane.INFORMATION_MESSAGE);
+        if(confirm == JOptionPane.YES_OPTION){
+            Connection con = Conexao.AbrirConexao();
+            ProdutoDAO sql = new ProdutoDAO(con);
+            JOptionPane.showMessageDialog(null, sql.Deletar(a),"Distribuidora",JOptionPane.INFORMATION_MESSAGE);
+            new Controle_Escritório().setVisible(true);
+            dispose();
+            
+        }else{
+            
+        }
+        
+        //new Controle_Escritório().setVisible(true);
+
+        
+        // AtualizaTable();
+
+    }//GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -360,23 +263,12 @@ public class Excluir_Pro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Alterar;
-    private javax.swing.JTextField CaixaPro;
-    private javax.swing.JTextField CodPro;
-    private javax.swing.JTextField DataPro;
-    private javax.swing.JTextField MarcaPro;
-    private javax.swing.JTextField NomePro;
-    private javax.swing.JTextField PrecoPro;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

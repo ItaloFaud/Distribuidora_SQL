@@ -6,6 +6,8 @@
 package View.Escritório;
 
 
+import Controller.Conexao;
+import Controller.ProdutoDAO;
 import View.Escritório.Controle_Escritório;
 import View.Escritório.Alterar_Pro;
 import Modelo.Produto;
@@ -13,7 +15,11 @@ import Principal.Tela_Inicial;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -35,7 +41,33 @@ public class Procura_Pro extends javax.swing.JFrame {
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
         setLocationRelativeTo(this);
+        AtualizaTable();
         
+    }
+    
+    public void AtualizaTable(){
+        Connection con = Conexao.AbrirConexao();
+        ProdutoDAO sql = new ProdutoDAO(con);
+        
+        List<Produto> lista = new ArrayList<>();
+        lista = sql.Consulta();
+        DefaultTableModel tbm = (DefaultTableModel) jTable2.getModel();
+        while(tbm.getRowCount() > 0){
+            tbm.removeRow(0);
+        }
+        int i = 0;
+        for (Produto tab : lista) {
+            //Object object = arr[j];
+            tbm.addRow(new String[1]);
+            jTable2.setValueAt(tab.getId(), i, 0);
+            jTable2.setValueAt(tab.getTipo(), i, 1);
+            jTable2.setValueAt(tab.getMarca(), i, 2);
+            jTable2.setValueAt(tab.getCaixas(),i,3);
+            jTable2.setValueAt(tab.getPreco(),i,4);
+            jTable2.setValueAt(tab.getData(),i,5);
+            i++; 
+        }
+        Conexao.FecharConexao(con);
     }
     
 
@@ -51,6 +83,8 @@ public class Procura_Pro extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -81,6 +115,25 @@ public class Procura_Pro extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(10, 510, 126, 21);
 
+        jTable2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Tipo", "Marca", "Caixas", "Preço", "Data de Validade"
+            }
+        ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(30, 70, 600, 360);
+
         jButton1.setBackground(new java.awt.Color(0, 0, 204));
         jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -105,36 +158,33 @@ public class Procura_Pro extends javax.swing.JFrame {
         new Tela_Inicial().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         new Controle_Escritório().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        int linha = jTable2.getSelectedRow();
+        int id = (int) jTable2.getValueAt(linha, 0);
+//        String tipo = (String) jTable2.getValueAt(linha, 1);
+//        String marca = (String) jTable2.getValueAt(linha, 2);
+//        int caixas = (int) jTable2.getValueAt(linha, 3);
+//        String preço = (String) jTable2.getValueAt(linha, 4);
+//        String data = (String) jTable2.getValueAt(linha, 5);
+        
+        Produto a = new Produto();
+        a.setId(id);
+        
+        new Alterar_Pro(a).setVisible(true);
+        
+        dispose();      
+       // AtualizaTable();
+        
+         
+    }//GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -192,5 +242,7 @@ public class Procura_Pro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

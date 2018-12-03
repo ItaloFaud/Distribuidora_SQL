@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,6 +53,31 @@ public class ClienteDAO extends ExecuteSQL{
             
             
         return false;
+    }
+    
+    public List<Cliente> Consulta(){
+        try {
+            String consulta = "select id,nome,CPF from cliente";
+            List<Cliente> lista = new ArrayList<>();
+            
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs != null){
+                while(rs.next()){
+                    Cliente c = new Cliente();
+                    c.setId(rs.getInt(1));
+                    c.setNome(rs.getString(2));
+                    c.setCpf(rs.getString(3));
+                    lista.add(c);
+                }return lista;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return null;
     }
     
 //    public String Nome(String cpf){

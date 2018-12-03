@@ -8,7 +8,12 @@ package Controller;
 import Modelo.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,6 +51,108 @@ public class ProdutoDAO extends ExecuteSQL{
             return "ERRO!"+ex.getMessage();
         }
     return null;
+    }
+    
+    public List<Produto> Consulta(){
+        String consulta = "select id,caixas,preco,marca,tipo,data_validade from produto";
+            List<Produto> lista = new ArrayList<>();
+        try {
+            
+            
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs != null){
+                while (rs.next()) {                    
+                    Produto c = new Produto();
+                    c.setId(rs.getInt(1));
+                    c.setCaixas(rs.getInt(2));
+                    c.setPreco(rs.getString(3));
+                    c.setMarca(rs.getString(4));
+                    c.setTipo(rs.getString(5));
+                    c.setData(rs.getString(6));
+                    
+                    lista.add(c);
+                }return lista;
+            }else{
+                return null;
+            }
+            
+        } catch (SQLException ex) {
+           // Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+    
+    public List<Produto> PreAlterar(Produto p){
+        String consulta = "select id,caixas,preco,marca,tipo,data_validade from produto where id = '"+p.getId()+"' ";
+            List<Produto> lista = new ArrayList<>();
+        try {
+            
+            
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs != null){
+                while (rs.next()) {                    
+                    Produto c = new Produto();
+                    c.setId(rs.getInt(1));
+                    c.setCaixas(rs.getInt(2));
+                    c.setPreco(rs.getString(3));
+                    c.setMarca(rs.getString(4));
+                    c.setTipo(rs.getString(5));
+                    c.setData(rs.getString(6));
+                    
+                    lista.add(c);
+                }return lista;
+            }else{
+                return null;
+            }
+            
+        } catch (SQLException ex) {
+           // Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+    
+    public String Alterar(Produto pro){
+        try {
+            String consulta = "update produto set caixas = '"+pro.getCaixas()+"', "
+                    + "preco = '"+pro.getPreco()+"', "
+                    + "marca = '"+pro.getMarca()+"', "
+                    + "tipo = '"+pro.getTipo()+"',"
+                    + "data_validade = '"+pro.getData()+"'";
+            
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            
+            if(ps.executeUpdate()> 0){
+                return "Alterado!";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.getMessage();
+        }
+        return null;
+    }
+    
+    public String Deletar(Produto p){
+        try {
+            String consulta = "delete from produto where id = ?";
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ps.setInt(1, p.getId());
+            
+            if(ps.executeUpdate()>0){
+                return "Deletado!";
+            }else{
+                return "ERRO!";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.getMessage();
+        }
+        
     }
     
     

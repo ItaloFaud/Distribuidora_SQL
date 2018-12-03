@@ -6,12 +6,18 @@
 package View.Escritório;
 
 
+import Controller.Conexao;
+import Controller.ProdutoDAO;
 import Modelo.Produto;
 import Principal.Tela_Inicial;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -28,12 +34,39 @@ public class Alterar_Pro extends javax.swing.JFrame {
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
         
-    public Alterar_Pro() {
+    public Alterar_Pro(Produto p) {
         initComponents();
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
         setLocationRelativeTo(this);
+        PegarValores(p);
         
+    }
+    
+    public void PegarValores(Produto p){
+         Connection con = Conexao.AbrirConexao();
+        ProdutoDAO sql = new ProdutoDAO(con);
+        
+        List<Produto> lista = new ArrayList<>();
+        lista = sql.PreAlterar(p);
+        
+        int i = 0;
+        for (Produto tab : lista) {
+            //Object object = arr[j];
+            
+            NomePro.setText(tab.getTipo());
+            MarcaPro.setText(tab.getMarca());
+            CaixaPro.setText(""+tab.getCaixas());
+            PrecoPro.setText(tab.getPreco());
+            DataPro.setText(tab.getData());
+            CodPro.setText(""+tab.getId());
+            i++; 
+        }
+        Conexao.FecharConexao(con);
+    }
+
+    private Alterar_Pro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -196,6 +229,7 @@ public class Alterar_Pro extends javax.swing.JFrame {
         getContentPane().add(jLabel9);
         jLabel9.setBounds(100, 380, 50, 21);
 
+        CodPro.setEditable(false);
         CodPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         CodPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,10 +310,14 @@ public class Alterar_Pro extends javax.swing.JFrame {
         pro.setCaixas(Integer.parseInt(ProCaixa));
         pro.setPreco(ProPreco);
         pro.setData(ProData);
+        
+        
         //pro.setCodigo(ProCod);
         
         //Alterar
-        JOptionPane.showMessageDialog(null, "Produto Alterado com sucesso");
+        Connection con = Conexao.AbrirConexao();
+        ProdutoDAO sql = new ProdutoDAO(con);
+        JOptionPane.showMessageDialog(null,sql.Alterar(pro),"Distribuidara",JOptionPane.INFORMATION_MESSAGE);
         
         NomePro.setText("");
         MarcaPro.setText("");

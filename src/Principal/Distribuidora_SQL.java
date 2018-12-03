@@ -6,6 +6,8 @@
 package Principal;
 
 import View.Escritório.Cadastro_Pro;
+import View.Escritório.Controle_Escritório;
+import View.Escritório.Procura_Pro;
 
 /**
  *
@@ -18,7 +20,7 @@ public class Distribuidora_SQL {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    new Cadastro_Pro().setVisible(true);
+    new Controle_Escritório().setVisible(true);
     }
     
 }
