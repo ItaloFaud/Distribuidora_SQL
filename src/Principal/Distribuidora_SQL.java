@@ -5,6 +5,8 @@
  */
 package Principal;
 
+import View.Admin.AdministracaoGeral;
+import View.Admin.Cadastro_Funcionario;
 import View.Escritório.Cadastro_Pro;
 import View.Escritório.Controle_Escritório;
 import View.Escritório.Procura_Pro;
@@ -20,7 +22,7 @@ public class Distribuidora_SQL {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    new Login_Funn().setVisible(true);
+    new Tela_Inicial().setVisible(true);
     }
     
 }

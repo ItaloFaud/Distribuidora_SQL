@@ -44,10 +44,10 @@ public class AdministracaoGeral extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        Estoque = new javax.swing.JButton();
-        Estoque1 = new javax.swing.JButton();
-        Estoque2 = new javax.swing.JButton();
-        Estoque3 = new javax.swing.JButton();
+        BtnAlterar = new javax.swing.JButton();
+        BtnConsulta = new javax.swing.JButton();
+        BtnDeletar = new javax.swing.JButton();
+        BtnCadastro = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -78,49 +78,49 @@ public class AdministracaoGeral extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(30, 80, 200, 29);
 
-        Estoque.setBackground(new java.awt.Color(255, 255, 255));
-        Estoque.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        Estoque.setText("Alterar funcionário");
-        Estoque.addActionListener(new java.awt.event.ActionListener() {
+        BtnAlterar.setBackground(new java.awt.Color(255, 255, 255));
+        BtnAlterar.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        BtnAlterar.setText("Alterar funcionário");
+        BtnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EstoqueActionPerformed(evt);
+                BtnAlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(Estoque);
-        Estoque.setBounds(430, 180, 170, 29);
+        getContentPane().add(BtnAlterar);
+        BtnAlterar.setBounds(430, 180, 170, 29);
 
-        Estoque1.setBackground(new java.awt.Color(255, 255, 255));
-        Estoque1.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        Estoque1.setText("Ver funcionários");
-        Estoque1.addActionListener(new java.awt.event.ActionListener() {
+        BtnConsulta.setBackground(new java.awt.Color(255, 255, 255));
+        BtnConsulta.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        BtnConsulta.setText("Ver funcionários");
+        BtnConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Estoque1ActionPerformed(evt);
+                BtnConsultaActionPerformed(evt);
             }
         });
-        getContentPane().add(Estoque1);
-        Estoque1.setBounds(430, 220, 170, 29);
+        getContentPane().add(BtnConsulta);
+        BtnConsulta.setBounds(430, 220, 170, 29);
 
-        Estoque2.setBackground(new java.awt.Color(255, 255, 255));
-        Estoque2.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        Estoque2.setText("Deletar funcionário");
-        Estoque2.addActionListener(new java.awt.event.ActionListener() {
+        BtnDeletar.setBackground(new java.awt.Color(255, 255, 255));
+        BtnDeletar.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        BtnDeletar.setText("Deletar funcionário");
+        BtnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Estoque2ActionPerformed(evt);
+                BtnDeletarActionPerformed(evt);
             }
         });
-        getContentPane().add(Estoque2);
-        Estoque2.setBounds(430, 260, 170, 29);
+        getContentPane().add(BtnDeletar);
+        BtnDeletar.setBounds(430, 260, 170, 29);
 
-        Estoque3.setBackground(new java.awt.Color(255, 255, 255));
-        Estoque3.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        Estoque3.setText("Cadastrar funcionário");
-        Estoque3.addActionListener(new java.awt.event.ActionListener() {
+        BtnCadastro.setBackground(new java.awt.Color(255, 255, 255));
+        BtnCadastro.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        BtnCadastro.setText("Cadastrar funcionário");
+        BtnCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Estoque3ActionPerformed(evt);
+                BtnCadastroActionPerformed(evt);
             }
         });
-        getContentPane().add(Estoque3);
-        Estoque3.setBounds(430, 140, 170, 29);
+        getContentPane().add(BtnCadastro);
+        BtnCadastro.setBounds(430, 140, 170, 29);
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -141,23 +141,29 @@ public class AdministracaoGeral extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void EstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstoqueActionPerformed
+    private void BtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlterarActionPerformed
         // TODO add your handling code here:
-        
+        new Procura_Funcionario().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_BtnAlterarActionPerformed
 
-    }//GEN-LAST:event_EstoqueActionPerformed
-
-    private void Estoque1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Estoque1ActionPerformed
+    private void BtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Estoque1ActionPerformed
+        new Consulta_Funcionario().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_BtnConsultaActionPerformed
 
-    private void Estoque2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Estoque2ActionPerformed
+    private void BtnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeletarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Estoque2ActionPerformed
+        new Excluir_Funcionario().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_BtnDeletarActionPerformed
 
-    private void Estoque3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Estoque3ActionPerformed
+    private void BtnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCadastroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Estoque3ActionPerformed
+        new Cadastro_Funcionario().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_BtnCadastroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,10 +204,10 @@ public class AdministracaoGeral extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Estoque;
-    private javax.swing.JButton Estoque1;
-    private javax.swing.JButton Estoque2;
-    private javax.swing.JButton Estoque3;
+    private javax.swing.JButton BtnAlterar;
+    private javax.swing.JButton BtnCadastro;
+    private javax.swing.JButton BtnConsulta;
+    private javax.swing.JButton BtnDeletar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

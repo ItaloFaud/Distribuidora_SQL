@@ -117,13 +117,13 @@ public class ProdutoDAO extends ExecuteSQL{
         
     }
     
-    public String Alterar(Produto pro){
+    public String Alterar(Produto pro, int id){
         try {
             String consulta = "update produto set caixas = '"+pro.getCaixas()+"', "
                     + "preco = '"+pro.getPreco()+"', "
                     + "marca = '"+pro.getMarca()+"', "
                     + "tipo = '"+pro.getTipo()+"',"
-                    + "data_validade = '"+pro.getData()+"'";
+                    + "data_validade = '"+pro.getData()+"' where id = '"+id+"'";
             
             PreparedStatement ps = getCon().prepareStatement(consulta);
             

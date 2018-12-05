@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View.Escritório;
+package View.Admin;
 
 
+import View.Escritório.*;
 import Controller.Conexao;
+import Controller.FuncionárioDAO;
 import Controller.ProdutoDAO;
+import Modelo.Funcionário;
 import Modelo.Produto;
 import Principal.Tela_Inicial;
 import java.io.BufferedWriter;
@@ -17,58 +20,55 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 
 /**
  *
  * @author Hoope
  */
-public class Alterar_Pro extends javax.swing.JFrame {
+public class Alterar_Funcionario extends javax.swing.JFrame {
 
     /**
      * Creates new form Tela_Inicial
      */
-    int id;
+    
 //     Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
+    int id;
         
-    public Alterar_Pro(Produto p) {
+    public Alterar_Funcionario(Funcionário f) {
         initComponents();
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
         setLocationRelativeTo(this);
-        PegarValores(p);
-        id = p.getId();
+        PegarValores(f);
+        id = f.getId();
         
     }
     
-    
-    
-    public void PegarValores(Produto p){
+    public void PegarValores(Funcionário p){
         Connection con = Conexao.AbrirConexao();
-        ProdutoDAO sql = new ProdutoDAO(con);
+        FuncionárioDAO sql = new FuncionárioDAO(con);
         
-        List<Produto> lista = new ArrayList<>();
+        List<Funcionário> lista = new ArrayList<>();
         lista = sql.PreAlterar(p);
         
         int i = 0;
-        for (Produto tab : lista) {
+        for (Funcionário tab : lista) {
             //Object object = arr[j];
             
-            NomePro.setText(tab.getTipo());
-            MarcaPro.setText(tab.getMarca());
-            CaixaPro.setText(""+tab.getCaixas());
-            PrecoPro.setText(tab.getPreco());
-            DataPro.setText(tab.getData());
-            CodPro.setText(""+tab.getId());
+            JtfNome.setText(tab.getNome());
+            JtfUsu.setText(tab.getUser());
+            JtfSen.setText(tab.getSenha());
+            JtfCpf.setText(tab.getCpf());
+            JcbNivel.setSelectedIndex(tab.getNível());
             i++; 
         }
         Conexao.FecharConexao(con);
     }
 
-    private Alterar_Pro() {
+    private Alterar_Funcionario() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -88,16 +88,14 @@ public class Alterar_Pro extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        CaixaPro = new javax.swing.JTextField();
-        PrecoPro = new javax.swing.JTextField();
-        DataPro = new javax.swing.JTextField();
-        MarcaPro = new javax.swing.JTextField();
-        NomePro = new javax.swing.JTextField();
+        JtfCpf = new javax.swing.JFormattedTextField();
+        JcbNivel = new javax.swing.JComboBox<>();
+        JtfSen = new javax.swing.JPasswordField();
+        JtfUsu = new javax.swing.JTextField();
+        JtfNome = new javax.swing.JTextField();
         Alterar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        CodPro = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,27 +115,28 @@ public class Alterar_Pro extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Alterar produto");
+        jLabel1.setText("Alteração de Funcionários");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 30, 220, 29);
+        jLabel1.setBounds(30, 30, 250, 29);
 
         jLabel3.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Quantidade (caixas):");
+        jLabel3.setText("Usuário:");
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(100, 200, 140, 21);
+        jLabel3.setBounds(80, 140, 140, 21);
 
         jLabel6.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Data de Validade:");
+        jLabel6.setText("Nível:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(100, 320, 120, 21);
+        jLabel6.setBounds(120, 320, 50, 21);
 
         jLabel5.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Marca:");
+        jLabel5.setText("Nome:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(100, 140, 50, 21);
+        jLabel5.setBounds(120, 80, 50, 21);
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -147,54 +146,48 @@ public class Alterar_Pro extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Preço:");
+        jLabel7.setText("Senha:");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(100, 260, 50, 21);
+        jLabel7.setBounds(120, 200, 50, 21);
 
-        CaixaPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        CaixaPro.addActionListener(new java.awt.event.ActionListener() {
+        try {
+            JtfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(JtfCpf);
+        JtfCpf.setBounds(300, 260, 200, 30);
+
+        JcbNivel.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        JcbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "(Escolha um nível)", "Nível 1", "Nível 2", "Nível 3" }));
+        getContentPane().add(JcbNivel);
+        JcbNivel.setBounds(300, 320, 200, 30);
+
+        JtfSen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CaixaProActionPerformed(evt);
+                JtfSenActionPerformed(evt);
             }
         });
-        getContentPane().add(CaixaPro);
-        CaixaPro.setBounds(300, 200, 200, 30);
+        getContentPane().add(JtfSen);
+        JtfSen.setBounds(300, 200, 200, 30);
 
-        PrecoPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        PrecoPro.addActionListener(new java.awt.event.ActionListener() {
+        JtfUsu.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        JtfUsu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PrecoProActionPerformed(evt);
+                JtfUsuActionPerformed(evt);
             }
         });
-        getContentPane().add(PrecoPro);
-        PrecoPro.setBounds(300, 260, 200, 30);
+        getContentPane().add(JtfUsu);
+        JtfUsu.setBounds(300, 140, 200, 30);
 
-        DataPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        DataPro.addActionListener(new java.awt.event.ActionListener() {
+        JtfNome.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
+        JtfNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DataProActionPerformed(evt);
+                JtfNomeActionPerformed(evt);
             }
         });
-        getContentPane().add(DataPro);
-        DataPro.setBounds(300, 320, 200, 30);
-
-        MarcaPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        MarcaPro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MarcaProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(MarcaPro);
-        MarcaPro.setBounds(300, 140, 200, 30);
-
-        NomePro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        NomePro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NomeProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(NomePro);
-        NomePro.setBounds(300, 80, 200, 30);
+        getContentPane().add(JtfNome);
+        JtfNome.setBounds(300, 80, 200, 30);
 
         Alterar.setBackground(new java.awt.Color(0, 204, 0));
         Alterar.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -206,13 +199,7 @@ public class Alterar_Pro extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Alterar);
-        Alterar.setBounds(210, 450, 150, 40);
-
-        jLabel8.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Nome:");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(100, 80, 50, 21);
+        Alterar.setBounds(220, 390, 150, 40);
 
         jButton1.setBackground(new java.awt.Color(0, 0, 204));
         jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -228,19 +215,9 @@ public class Alterar_Pro extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Código:");
+        jLabel9.setText("CPF:");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(100, 380, 50, 21);
-
-        CodPro.setEditable(false);
-        CodPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        CodPro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CodProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CodPro);
-        CodPro.setBounds(300, 380, 200, 30);
+        jLabel9.setBounds(80, 260, 120, 21);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -272,21 +249,9 @@ public class Alterar_Pro extends javax.swing.JFrame {
     
     
     
-    private void DataProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataProActionPerformed
+    private void JtfUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JtfUsuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_DataProActionPerformed
-
-    private void MarcaProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MarcaProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MarcaProActionPerformed
-
-    private void CaixaProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaixaProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CaixaProActionPerformed
-
-    private void PrecoProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrecoProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PrecoProActionPerformed
+    }//GEN-LAST:event_JtfUsuActionPerformed
 
     
     
@@ -297,59 +262,48 @@ public class Alterar_Pro extends javax.swing.JFrame {
     
     private void AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlterarActionPerformed
         // TODO add your handling code here:
-       String ProNome = NomePro.getText();
-       String ProMarca = MarcaPro.getText();
-       String ProCaixa = CaixaPro.getText();
-       String ProPreco = PrecoPro.getText();
-       String ProData = DataPro.getText();
-       //String ProCod = CodPro.getText();
-        
-//        JOptionPane.showMessageDialog(null, ProNome+"\n"+ProCaixa+"\n"+
-//                ProPreco+"\n"+ProData);
-
-        Produto pro = new Produto();
-        pro.setTipo(ProNome);
-        pro.setMarca(ProMarca);
-        pro.setCaixas(Integer.parseInt(ProCaixa));
-        pro.setPreco(ProPreco);
-        pro.setData(ProData);
-        
-        
-        //pro.setCodigo(ProCod);
-        
-        //Alterar
-        Connection con = Conexao.AbrirConexao();
-        ProdutoDAO sql = new ProdutoDAO(con);
-        JOptionPane.showMessageDialog(null,sql.Alterar(pro,id),"Distribuidara",JOptionPane.INFORMATION_MESSAGE);
-        
-        NomePro.setText("");
-        MarcaPro.setText("");
-        DataPro.setText("");
-        PrecoPro.setText("");
-        CaixaPro.setText("");
-        
-        new Controle_Escritório().setVisible(true);
-        dispose();
-        
-//        
-//        
+       Connection con = Conexao.AbrirConexao();
+       FuncionárioDAO sql = new FuncionárioDAO(con);
+       Funcionário f = new Funcionário();
        
+       int n = JcbNivel.getSelectedIndex();
+        System.out.println(n+"");
         
+        if(n != 0){
+            f.setNome(JtfNome.getText());
+            f.setUser(JtfUsu.getText());
+            f.setSenha(JtfSen.getText());
+            f.setCpf(JtfCpf.getText());
+            f.setNível(JcbNivel.getSelectedIndex());
+            
+            JOptionPane.showMessageDialog(null, sql.Alterar(f,id),"Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+            JtfNome.setText("");
+            JtfUsu.setText("");
+            JtfSen.setText("");
+            JtfCpf.setText("");
+            JcbNivel.setSelectedIndex(0);
+            
+            new AdministracaoGeral().setVisible(true);
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Escolha um nível suportado","Distribuidora Ítalo",JOptionPane.WARNING_MESSAGE);
+        }
+
     }//GEN-LAST:event_AlterarActionPerformed
 
-    private void NomeProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomeProActionPerformed
+    private void JtfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JtfNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NomeProActionPerformed
+    }//GEN-LAST:event_JtfNomeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new Controle_Escritório().setVisible(true);
+        new AdministracaoGeral().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void CodProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodProActionPerformed
+    private void JtfSenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JtfSenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CodProActionPerformed
+    }//GEN-LAST:event_JtfSenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -368,14 +322,38 @@ public class Alterar_Pro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alterar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alterar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alterar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Alterar_Pro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Alterar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -388,19 +366,18 @@ public class Alterar_Pro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Alterar_Pro().setVisible(true);
+                new Alterar_Funcionario().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Alterar;
-    private javax.swing.JTextField CaixaPro;
-    private javax.swing.JTextField CodPro;
-    private javax.swing.JTextField DataPro;
-    private javax.swing.JTextField MarcaPro;
-    private javax.swing.JTextField NomePro;
-    private javax.swing.JTextField PrecoPro;
+    private javax.swing.JComboBox<String> JcbNivel;
+    private javax.swing.JFormattedTextField JtfCpf;
+    private javax.swing.JTextField JtfNome;
+    private javax.swing.JPasswordField JtfSen;
+    private javax.swing.JTextField JtfUsu;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -410,7 +387,6 @@ public class Alterar_Pro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 }
