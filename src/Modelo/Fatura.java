@@ -13,6 +13,15 @@ public class Fatura {
     private int id;
     private String subtotal;
     private int idCliente;
+    private String situacao;
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
 
     public int getId() {
         return id;

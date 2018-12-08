@@ -25,9 +25,29 @@ public class ProdutoDAO extends ExecuteSQL{
         super(con);
     }
     //Compra Cliente
-    public void Confere(Produto p){
+    public boolean Confere(Produto p){
         
-        String consulta = "select * from produto where id = '"+p.getId()+"' ";
+        try {
+            String consulta = "select id,preco,marca,tipo from produto where id = '"+p.getId()+"'";
+            
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs != null){
+                if(rs.next()){
+                    p.setPreco(rs.getString(2));
+                    p.setMarca(rs.getString(3));
+                    p.setTipo(rs.getString(4));
+                    return true;
+                    
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return false;
     }
     
     public String Cadastro (Produto c){

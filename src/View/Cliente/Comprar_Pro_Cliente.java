@@ -6,7 +6,12 @@
 package View.Cliente;
 
 
+import Controller.Conexao;
+import Controller.FaturaDAO;
+import Controller.PedidoDAO;
+import Controller.ProdutoDAO;
 import Modelo.Cliente;
+import Modelo.Fatura;
 import Modelo.Produto;
 import Principal.Tela_Inicial;
 import java.io.BufferedReader;
@@ -16,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,14 +40,41 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
 //     Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
-        
+       
     public Comprar_Pro_Cliente(Cliente c) {
         initComponents();
         setTitle("Distribuidora Ítalo");
         setSize(660, 580);
         setLocationRelativeTo(this);
         Cliente1.setText(c.getNome());
+        cc = c;
+        Criar_Fatura();
         
+        
+    }
+    Cliente cc = new Cliente();
+    Fatura f = new Fatura();
+    
+    int id_Fatura; 
+    
+    public void Criar_Fatura(){
+        Connection con = Conexao.AbrirConexao();
+        PedidoDAO sql_1 = new PedidoDAO(con);
+        FaturaDAO sql_2 = new FaturaDAO(con);
+        
+        
+        sql_2.Nova_Fatura(f,cc);
+        id_Fatura = sql_2.idFatura(f);
+        Conexao.FecharConexao(con);
+    }
+    
+    public void Limpar(){
+        CodPro.setText("");
+        QtnCaixas.setText("");
+        NomePro.setText("");
+        MarcaPro.setText("");
+        PrecoPro.setText("");
+        PrecoTotal.setText("");
     }
 
     private Comprar_Pro_Cliente() {
@@ -78,7 +111,6 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         Tela_Inicial = new javax.swing.JButton();
-        FimCompra = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         Cliente1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -95,14 +127,14 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
         Comprar.setBackground(new java.awt.Color(102, 255, 0));
         Comprar.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         Comprar.setForeground(new java.awt.Color(255, 255, 255));
-        Comprar.setText("Comprar outro Produto");
+        Comprar.setText("Comprar");
         Comprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComprarActionPerformed(evt);
             }
         });
         getContentPane().add(Comprar);
-        Comprar.setBounds(240, 400, 220, 40);
+        Comprar.setBounds(330, 390, 210, 60);
 
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -138,7 +170,7 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
         Cliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Cliente.setText("Cliente:");
         getContentPane().add(Cliente);
-        Cliente.setBounds(380, 60, 60, 20);
+        Cliente.setBounds(260, 60, 60, 20);
 
         jLabel10.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -237,18 +269,6 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
         getContentPane().add(Tela_Inicial);
         Tela_Inicial.setBounds(530, 500, 120, 29);
 
-        FimCompra.setBackground(new java.awt.Color(255, 0, 0));
-        FimCompra.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
-        FimCompra.setForeground(new java.awt.Color(255, 255, 255));
-        FimCompra.setText("Finalizar Compra");
-        FimCompra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FimCompraActionPerformed(evt);
-            }
-        });
-        getContentPane().add(FimCompra);
-        FimCompra.setBounds(480, 400, 160, 40);
-
         jLabel13.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Preço Unitário:");
@@ -259,7 +279,7 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
         Cliente1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Cliente1.setText("Nome:");
         getContentPane().add(Cliente1);
-        Cliente1.setBounds(430, 60, 150, 20);
+        Cliente1.setBounds(320, 60, 320, 20);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
@@ -270,6 +290,63 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
 
     private void ComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprarActionPerformed
         // TODO add your handling code here:
+        if(QtnCaixas.getText().equalsIgnoreCase("") || CodPro.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(null,"Escolha um produto","Distribuidora Ítalo",JOptionPane.WARNING_MESSAGE);
+        }else{
+            int confirm = JOptionPane.showConfirmDialog(null,"Você deseja continuar comprando?","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+            if(confirm == JOptionPane.NO_OPTION){
+                 Connection con = Conexao.AbrirConexao();
+                 PedidoDAO sql1 = new PedidoDAO(con);
+                 FaturaDAO sql2 = new FaturaDAO(con);
+
+                 Produto p = new Produto();
+                 p.setId(Integer.parseInt(CodPro.getText()));
+                 p.setCaixas(Integer.parseInt(QtnCaixas.getText()));
+                 p.setPreco(PrecoTotal.getText());
+
+                 sql1.Novo_Pedido(id_Fatura, p);
+                 double soma = Double.parseDouble(Subtotal.getText())+Double.parseDouble(PrecoTotal.getText());
+                 Subtotal.setText(soma+"");
+                 Limpar();
+                 //Encerrando compra
+                 
+                 sql2.Encerrando(id_Fatura,Subtotal.getText());
+                 
+                 //Tela de Pagamento
+                 Fatura fatu = new Fatura();
+                 fatu.setId(id_Fatura);
+                 fatu.setSubtotal(Subtotal.getText());
+                 
+                 new Tela_Pagamento(fatu).setVisible(true);
+                 dispose();
+                 
+                 
+                 
+                 
+                 
+                 
+            }else if(confirm == JOptionPane.YES_OPTION){
+                 Connection con = Conexao.AbrirConexao();
+                 PedidoDAO sql1 = new PedidoDAO(con);
+
+                 Produto p = new Produto();
+                 p.setId(Integer.parseInt(CodPro.getText()));
+                 p.setCaixas(Integer.parseInt(QtnCaixas.getText()));
+                 p.setPreco(PrecoTotal.getText());
+
+                 sql1.Novo_Pedido(id_Fatura, p);
+                 double soma = Double.parseDouble(Subtotal.getText())+Double.parseDouble(PrecoTotal.getText());
+                 Subtotal.setText(soma+"");
+                 Limpar();
+                 
+                 
+                
+
+            }
+        }
+        
+
+            
         
         
         
@@ -277,7 +354,31 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
 
     private void QtnCaixasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QtnCaixasActionPerformed
         // TODO add your handling code here:
-        JHSDJASK
+        if(QtnCaixas.getText().equalsIgnoreCase("") || CodPro.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(null, "Campos caixas e/ou código vazios","Distribuidora Ítalo",JOptionPane.ERROR_MESSAGE);
+           CodPro.setText("");
+           QtnCaixas.setText("");
+        }else{
+        Connection con = Conexao.AbrirConexao();
+        ProdutoDAO sql = new ProdutoDAO(con);
+        
+        Produto p = new Produto();
+        p.setId(Integer.parseInt(CodPro.getText()));
+        
+        if(sql.Confere(p) == true){
+            JOptionPane.showMessageDialog(null,"Produto encontrado","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+            NomePro.setText(p.getTipo());
+            MarcaPro.setText(p.getMarca());
+            PrecoPro.setText(p.getPreco());
+            
+            double preco_tot =  Double.parseDouble(p.getPreco()) * Double.parseDouble(QtnCaixas.getText());
+            PrecoTotal.setText(""+preco_tot);
+            
+        }else{
+            JOptionPane.showMessageDialog(null,"Produto não encontrado","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+        }
+        }
+        
     }//GEN-LAST:event_QtnCaixasActionPerformed
 
     private void SubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubtotalActionPerformed
@@ -301,7 +402,33 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_PrecoProActionPerformed
 
     private void CodProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodProActionPerformed
-       JOptionPane.showMessageDialog(null, "Insira a quantidade de caixas e aperte ENTER", "Distribuidora Ítalo", JOptionPane.INFORMATION_MESSAGE);
+       //JOptionPane.showMessageDialog(null, "Insira a quantidade de caixas e aperte ENTER", "Distribuidora Ítalo", JOptionPane.INFORMATION_MESSAGE);
+        if(QtnCaixas.getText().equalsIgnoreCase("") || CodPro.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(null, "Campos caixas e/ou código vazios","Distribuidora Ítalo",JOptionPane.ERROR_MESSAGE);
+           CodPro.setText("");
+           QtnCaixas.setText("");
+        }else{
+        Connection con = Conexao.AbrirConexao();
+        ProdutoDAO sql = new ProdutoDAO(con);
+        
+        Produto p = new Produto();
+        p.setId(Integer.parseInt(CodPro.getText()));
+        
+        if(sql.Confere(p) == true){
+            JOptionPane.showMessageDialog(null,"Produto encontrado","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+            NomePro.setText(p.getTipo());
+            MarcaPro.setText(p.getMarca());
+            PrecoPro.setText(p.getPreco());
+            
+            double preco_tot =  Double.parseDouble(p.getPreco()) * Double.parseDouble(QtnCaixas.getText());
+            PrecoTotal.setText(""+preco_tot);
+            
+        }else{
+            JOptionPane.showMessageDialog(null,"Produto não encontrado","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+        }
+        }
+        
+        
         
     }//GEN-LAST:event_CodProActionPerformed
 
@@ -310,10 +437,6 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
         new Tela_Inicial().setVisible(true);
         dispose();
     }//GEN-LAST:event_Tela_InicialActionPerformed
-
-    private void FimCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FimCompraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FimCompraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,7 +481,6 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel Cliente1;
     private javax.swing.JTextField CodPro;
     private javax.swing.JButton Comprar;
-    private javax.swing.JButton FimCompra;
     private javax.swing.JTextField MarcaPro;
     private javax.swing.JTextField NomePro;
     private javax.swing.JTextField PrecoPro;

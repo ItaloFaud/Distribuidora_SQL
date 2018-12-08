@@ -129,7 +129,7 @@ public class Cadastro_Funcionario extends javax.swing.JFrame {
         JtfCpf.setBounds(300, 260, 200, 30);
 
         JcbNivel.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        JcbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "(Escolha um nível)", "Nível 1", "Nível 2", "Nível 3" }));
+        JcbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "(Escolha um nível)", "Nível 1", "Nível 2" }));
         getContentPane().add(JcbNivel);
         JcbNivel.setBounds(300, 320, 200, 30);
 

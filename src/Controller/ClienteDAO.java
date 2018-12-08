@@ -27,32 +27,49 @@ public class ClienteDAO extends ExecuteSQL{
         super(con);
     }
     
-    public void Comprar(Cliente c,Fatura f,Pedido p){
-        String compra = "insert into fa";
-    }
+  
     
     public boolean Login(Cliente c){
         try {
+            String consulta = "select id,nome,user,senha,CPF from cliente where user = '"+c.getUser()+"' and senha = '"+c.getSenha()+"'";
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
             
-                String consulta = "insert into cliente values (0,?,?)";
-                PreparedStatement ps = getCon().prepareStatement(consulta);
-                
-                ps.setString(1, c.getNome());
-                ps.setString(2, c.getCpf());
-                
-                if(ps.executeUpdate() > 0){
-                 return true;
+            while(rs != null){
+                if(rs.next()){
+                  c.setId(rs.getInt(1));
+                  c.setNome(rs.getString(2));
+                  c.setUser(rs.getString(3));
+                  c.setSenha(rs.getString(4));
+                  c.setCpf(rs.getString(5));
+                  return true;
                 }
+            }
             
         } catch (SQLException ex) {
-            //Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-           
-            
-            
         return false;
+    }
+    public String Cadastro(Cliente c){
+        try {
+            String consulta = "insert into cliente values (0,?,?,?,?)";
+            
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ps.setString(1, c.getNome());
+            ps.setString(2, c.getUser());
+            ps.setString(3, c.getSenha());
+            ps.setString(4, c.getCpf());
+            
+            if(ps.executeUpdate() > 0){
+                return "Cadastro efetuado com sucesso!";
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.getMessage();
+        }
+        return  null;
     }
     
     public List<Cliente> Consulta(){

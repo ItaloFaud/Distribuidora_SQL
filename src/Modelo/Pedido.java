@@ -11,7 +11,7 @@ package Modelo;
  */
 public class Pedido {
    private int id;
-   private int caixaas;
+   private int caixas;
    private int idProduto;
    private int idFatura;
    private String total;
@@ -25,11 +25,11 @@ public class Pedido {
     }
 
     public int getCaixaas() {
-        return caixaas;
+        return caixas;
     }
 
     public void setCaixaas(int caixaas) {
-        this.caixaas = caixaas;
+        this.caixas = caixaas;
     }
 
     public int getIdProduto() {

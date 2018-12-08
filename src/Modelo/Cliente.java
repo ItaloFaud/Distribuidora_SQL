@@ -12,10 +12,26 @@ package Modelo;
 public class Cliente {
     private int id;
     private String Nome;
+    private String User;
+    private String Senha;
     private String cpf;
 
-    
+    public String getUser() {
+        return User;
+    }
 
+    public void setUser(String User) {
+        this.User = User;
+    }
+
+    public String getSenha() {
+        return Senha;
+    }
+
+    public void setSenha(String Senha) {
+        this.Senha = Senha;
+    }
+    
     public int getId() {
         return id;
     }
@@ -23,8 +39,6 @@ public class Cliente {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
 
     public String getCpf() {
         return cpf;

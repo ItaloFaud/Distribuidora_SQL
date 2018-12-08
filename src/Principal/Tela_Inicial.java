@@ -149,15 +149,18 @@ public class Tela_Inicial extends javax.swing.JFrame {
             ClienteDAO sql = new ClienteDAO(con);
             Cliente c = new Cliente();
             
-            c.setNome(JOptionPane.showInputDialog("Informe seu nome"));
-            c.setCpf(JOptionPane.showInputDialog("Informe seu CPF"));
-            
-            if(sql.Login(c) == true){
-                JOptionPane.showMessageDialog(null, "CPF usável ","Distribuidora Ítalo", JOptionPane.INFORMATION_MESSAGE);
-                new Comprar_Pro_Cliente(c).setVisible(true);
-                dispose();
+            int confirm = JOptionPane.showConfirmDialog(null,"Você é um novo usuário?","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+            if(confirm == JOptionPane.YES_OPTION){
+                    JOptionPane.showMessageDialog(null,"Redirecionando para a tela de cadastro","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+                    new Tela_Cadastro().setVisible(true);
+                    dispose();
             }else{
-                JOptionPane.showMessageDialog(null, "CPF já em uso","Distribuidora Ítalo", JOptionPane.INFORMATION_MESSAGE);
+                    int confirm2 = JOptionPane.showConfirmDialog(null,"Você é um usuário antigo?","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+                    if (confirm2 == JOptionPane.YES_OPTION) {
+                        JOptionPane.showMessageDialog(null,"Redirecionando para a tela de login","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+                        new Tela_Login().setVisible(true);
+                        dispose();
+                    }
             }
             
                
