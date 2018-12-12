@@ -136,7 +136,7 @@ public class Controle_Estoque extends javax.swing.JFrame {
 
     private void Pedidos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pedidos1ActionPerformed
         // TODO add your handling code here:
-        new Procurar_Cliente_Estoque().setVisible(true);
+        new Ver_Faturas().setVisible(true);
         dispose();
     }//GEN-LAST:event_Pedidos1ActionPerformed
 
