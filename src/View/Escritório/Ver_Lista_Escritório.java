@@ -6,14 +6,21 @@
 package View.Escritório;
 
 
+import Controller.Conexao;
+import Controller.FaturaDAO;
 import View.Escritório.Controle_Escritório;
 import Modelo.Cliente;
+import Modelo.Fatura;
 import Principal.Tela_Inicial;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -33,69 +40,50 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
 //        int lar = (int) tela.getWidth();
 //        int alt = (int) tela.getHeight();
         
-    public Ver_Lista_Escritório(String Cliente) {
+    public Ver_Lista_Escritório() {
         initComponents();
         setTitle("Distribuidora Ítalo");
         setSize(670, 580);
         setLocationRelativeTo(this);
-        NCliente.setText(Cliente);
-        try {
-            Tabela();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Ver_Lista_Escritório.class.getName()).log(Level.SEVERE, null, ex);
+        AtualizaTable();
+        
+        
+    }
+    
+    public void AtualizaTable(){
+        Connection con = Conexao.AbrirConexao();
+        FaturaDAO sql = new FaturaDAO(con);
+        double total = 0;
+        NumberFormat nf = NumberFormat.getCurrencyInstance();// Iniciando formatação
+        nf.setMaximumFractionDigits(2);
+        nf.setMinimumFractionDigits(2);
+        List<Fatura> lista = new ArrayList<>();
+        lista = sql.Consulta();
+        DefaultTableModel tbm = (DefaultTableModel) jTable2.getModel();
+        while(tbm.getRowCount() > 0){
+            tbm.removeRow(0);
+        }
+        int i = 0;
+        for (Fatura tab : lista) {
+            //Object object = arr[j];
+            tbm.addRow(new String[1]);
+            jTable2.setValueAt(tab.getId(), i, 0);
+            jTable2.setValueAt(tab.getIdCliente(), i, 1);
+            jTable2.setValueAt(nf.format(Double.parseDouble(tab.getSubtotal())), i, 2);
+            jTable2.setValueAt(tab.getSituacao(),i,3);
+            total += Double.parseDouble(tab.getSubtotal());
+            
+            i++;
         }
         
+        System.out.println("R$:"+nf.format(total));
+        Valor.setText("R$:"+nf.format(total));
+        Conexao.FecharConexao(con);
     }
 
-    private Ver_Lista_Escritório() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
     
-    public void Tabela() throws FileNotFoundException {
-        DefaultTableModel tabela = (DefaultTableModel) Tabela.getModel();
-        
-        File pasta = new File("Pedidos");
-        File Clientes[] = pasta.listFiles();
-        
-        if (Clientes != null){
-            Cliente c1 = new Cliente();
-            Cliente c2 = new Cliente();
-            c1.setNome(NCliente.getText().toUpperCase());
-            
-            
-            for (int i = 0; i < Clientes.length; i++) {
-                File Cliente = Clientes[i];
-                c2.setNome(Cliente.getName().toUpperCase());
-                
-                if (c1.getNome().equals(c2.getNome())){
-                    File ProdutosP = new File ("Pedidos/"+c1.getNome());
-                    File Produtos[] = ProdutosP.listFiles();
-                    String Nome = "";
-                    String Caixas = "";
-                    int pos = 1;
-                    for (int j = 0; j < Produtos.length; j++) {
-                        File Produto = Produtos[j];
-                        Nome =pos+"."+Produto.getName();
-                        
-                        FileReader NM = new FileReader("Pedidos/"+c1.getNome()+"/"+Produto.getName()+"/Caixas.txt");
-                        BufferedReader LNM = new BufferedReader(NM);
-                        try {
-                            Caixas = pos+"."+LNM.readLine();
-                        } catch (IOException ex) {
-                            Logger.getLogger(Ver_Lista_Escritório.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        Object Pedido[] = {Nome,Caixas};
-                        tabela.addRow(Pedido);
-                           pos++;
-                        
-                    }
-                break;
-                }
-        }
-        
-    }
     
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,12 +95,13 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabela = new javax.swing.JTable();
-        NCliente = new javax.swing.JLabel();
+        Valor = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        NCliente1 = new javax.swing.JLabel();
+        NCliente2 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -130,31 +119,10 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(530, 500, 120, 29);
 
-        jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cliente:");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 30, 80, 21);
-
-        Tabela.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        Tabela.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Produtos_Marcas", "Caixas "
-            }
-        ));
-        jScrollPane1.setViewportView(Tabela);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 60, 620, 420);
-
-        NCliente.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
-        NCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        NCliente.setText("Distribuidora Ítalo");
-        getContentPane().add(NCliente);
-        NCliente.setBounds(110, 30, 370, 21);
+        Valor.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
+        Valor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(Valor);
+        Valor.setBounds(330, 20, 150, 29);
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -174,6 +142,37 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(400, 500, 110, 30);
 
+        jTable2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Cliente", "Total", "Situação"
+            }
+        ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(30, 60, 600, 420);
+
+        NCliente1.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
+        NCliente1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        NCliente1.setText("Faturas");
+        getContentPane().add(NCliente1);
+        NCliente1.setBounds(30, 20, 110, 29);
+
+        NCliente2.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
+        NCliente2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        NCliente2.setText("Arrecadado:");
+        getContentPane().add(NCliente2);
+        NCliente2.setBounds(190, 20, 150, 29);
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(jLabel2);
         jLabel2.setBounds(0, 0, 660, 600);
@@ -192,6 +191,10 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
         new Controle_Escritório().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -232,13 +235,14 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel NCliente;
-    private javax.swing.JTable Tabela;
+    private javax.swing.JLabel NCliente1;
+    private javax.swing.JLabel NCliente2;
+    private javax.swing.JLabel Valor;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

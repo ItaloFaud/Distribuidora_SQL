@@ -38,6 +38,8 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,13 +59,13 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         CaixaPro = new javax.swing.JTextField();
         PrecoPro = new javax.swing.JTextField();
-        DataPro = new javax.swing.JTextField();
         MarcaPro = new javax.swing.JTextField();
         NomePro = new javax.swing.JTextField();
         Cadastrar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        DataPro = new javax.swing.JFormattedTextField();
         CodPro = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
@@ -136,15 +138,6 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         getContentPane().add(PrecoPro);
         PrecoPro.setBounds(300, 260, 200, 30);
 
-        DataPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        DataPro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DataProActionPerformed(evt);
-            }
-        });
-        getContentPane().add(DataPro);
-        DataPro.setBounds(300, 320, 200, 30);
-
         MarcaPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         MarcaPro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,6 +192,14 @@ public class Cadastro_Pro extends javax.swing.JFrame {
         getContentPane().add(jLabel9);
         jLabel9.setBounds(90, 320, 120, 21);
 
+        try {
+            DataPro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(DataPro);
+        DataPro.setBounds(300, 320, 200, 30);
+
         CodPro.setEditable(false);
         CodPro.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
         CodPro.addActionListener(new java.awt.event.ActionListener() {
@@ -239,10 +240,6 @@ public class Cadastro_Pro extends javax.swing.JFrame {
     
     
     
-    private void DataProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DataProActionPerformed
-
     private void MarcaProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MarcaProActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MarcaProActionPerformed
@@ -346,7 +343,7 @@ public class Cadastro_Pro extends javax.swing.JFrame {
     private javax.swing.JButton Cadastrar;
     private javax.swing.JTextField CaixaPro;
     private javax.swing.JTextField CodPro;
-    private javax.swing.JTextField DataPro;
+    private javax.swing.JFormattedTextField DataPro;
     private javax.swing.JTextField MarcaPro;
     private javax.swing.JTextField NomePro;
     private javax.swing.JTextField PrecoPro;

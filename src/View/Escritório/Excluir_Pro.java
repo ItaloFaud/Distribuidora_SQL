@@ -14,7 +14,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -41,6 +43,60 @@ public class Excluir_Pro extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         AtualizaTable();
     }
+    
+    public void AtualizaTable_Vencidos(){
+        Connection con = Conexao.AbrirConexao();
+        ProdutoDAO sql = new ProdutoDAO(con);
+        
+        List<Produto> lista = new ArrayList<>();
+        lista = sql.Consulta_Data();
+        Date d = new Date();
+        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+
+        String[] data_hj = data.format(d).split("/");
+        int i = 0;
+        
+        for (Produto tab : lista) {
+            
+            String[] data_venc = tab.getData().split("/");
+            Produto p = new Produto();
+            if(Integer.parseInt(data_hj[2]) > Integer.parseInt(data_venc[2])){
+                   //JOptionPane.showMessageDialog(null, tab.getId());
+              //id[i] = tab.getId();
+                
+                p.setId(tab.getId());
+                //id[i] = p.getId()+"";
+                System.out.println("Id "+i+": "+p.getId());
+                JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+                
+                i++;
+            }else{
+                if(Integer.parseInt(data_hj[1]) > Integer.parseInt(data_venc[1]) && Integer.parseInt(data_hj[2]) > Integer.parseInt(data_venc[2])){
+                 p.setId(tab.getId());
+                //id[i] = p.getId()+"";
+                System.out.println("Id "+i+": "+p.getId());
+                JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+                i++;
+                }else{
+                    if(Integer.parseInt(data_hj[0]) > Integer.parseInt(data_venc[0]) && Integer.parseInt(data_hj[1]) > Integer.parseInt(data_venc[1]) && Integer.parseInt(data_hj[2]) > Integer.parseInt(data_venc[2])){
+                      p.setId(tab.getId());
+                      //id[i] = p.getId()+"";
+                      System.out.println("Id "+i+": "+p.getId());
+                      JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+                      i++;
+                    }else{
+                       
+                    }
+                }
+            }
+            
+            
+            
+        }
+        Conexao.FecharConexao(con);
+        
+    }
+    
     
     public void AtualizaTable(){
         Connection con = Conexao.AbrirConexao();
@@ -81,6 +137,7 @@ public class Excluir_Pro extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        BtnVencidos = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -129,6 +186,17 @@ public class Excluir_Pro extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(30, 70, 600, 360);
+
+        BtnVencidos.setBackground(new java.awt.Color(204, 255, 0));
+        BtnVencidos.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
+        BtnVencidos.setText("Ver produtos  vencidos");
+        BtnVencidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVencidosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnVencidos);
+        BtnVencidos.setBounds(320, 20, 200, 30);
 
         jButton1.setBackground(new java.awt.Color(0, 0, 204));
         jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -212,6 +280,12 @@ public class Excluir_Pro extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable2MouseClicked
 
+    private void BtnVencidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVencidosActionPerformed
+        // TODO add your handling code here:
+        AtualizaTable_Vencidos();
+        //  JOptionPane.showMessageDialog(null,r);
+    }//GEN-LAST:event_BtnVencidosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -263,6 +337,7 @@ public class Excluir_Pro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnVencidos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

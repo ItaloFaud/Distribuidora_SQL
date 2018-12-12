@@ -126,7 +126,7 @@ public class Controle_Escritório extends javax.swing.JFrame {
 
         Pedidos.setBackground(new java.awt.Color(255, 255, 255));
         Pedidos.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        Pedidos.setText("Ver Pedidos");
+        Pedidos.setText("Ver faturas");
         Pedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PedidosActionPerformed(evt);
@@ -179,7 +179,7 @@ public class Controle_Escritório extends javax.swing.JFrame {
 
     private void PedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PedidosActionPerformed
         // TODO add your handling code here:
-        new Procurar_Cliente_Escritório().setVisible(true);
+        new Ver_Lista_Escritório().setVisible(true);
         dispose();
     }//GEN-LAST:event_PedidosActionPerformed
 
