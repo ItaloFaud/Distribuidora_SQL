@@ -14,6 +14,15 @@ public class Fatura {
     private String subtotal;
     private int idCliente;
     private String situacao;
+    private String entrega;
+
+    public String getEntrega() {
+        return entrega;
+    }
+
+    public void setEntrega(String entrega) {
+        this.entrega = entrega;
+    }
 
     public String getSituacao() {
         return situacao;

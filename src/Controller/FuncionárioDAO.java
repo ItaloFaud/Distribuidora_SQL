@@ -74,7 +74,7 @@ public class FuncionárioDAO extends ExecuteSQL{
     }
     
      public List<Funcionário> Consulta(){
-        String consulta = "select id,nome,user,senha,cpf,nivel from funcionario";
+        String consulta = "select id,nome,user,senha,cpf,nivel from funcionario where nivel != '3'";
             List<Funcionário> lista = new ArrayList<>();
         try {
             

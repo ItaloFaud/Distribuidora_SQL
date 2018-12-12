@@ -50,6 +50,61 @@ public class ProdutoDAO extends ExecuteSQL{
         return false;
     }
     
+    public void Pegar(Produto p){
+        
+        try {
+            String consulta = "select id,caixas,preco,marca,tipo,data_validade from produto where id = '"+p.getId()+"'";
+            
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs != null){
+                if(rs.next()){
+                    p.setCaixas(rs.getInt(1));
+                    p.setPreco(rs.getString(2));
+                    p.setMarca(rs.getString(3));
+                    p.setTipo(rs.getString(4));
+                    p.setData(rs.getString(5));
+                    
+                    
+                    
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+           
+        }
+        
+    }
+    
+    public List<Produto> Consulta_Data(){
+        String consulta = "select id,data_validade from produto";
+            List<Produto> lista = new ArrayList<>();
+        try {
+            
+            
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs != null){
+                while (rs.next()) {                    
+                    Produto c = new Produto();
+                    c.setId(rs.getInt(1));
+                    c.setData(rs.getString(2));
+                    lista.add(c);
+                }return lista;
+            }else{
+                return null;
+            }
+            
+        } catch (SQLException ex) {
+           // Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+    
     public String Cadastro (Produto c){
         try {
                 //String resulta = "Cadsatro";
@@ -104,6 +159,8 @@ public class ProdutoDAO extends ExecuteSQL{
         }
         
     }
+    
+    
     
     public List<Produto> PreAlterar(Produto p){
         String consulta = "select id,caixas,preco,marca,tipo,data_validade from produto where id = '"+p.getId()+"' ";

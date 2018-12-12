@@ -168,10 +168,10 @@ public class Tela_Cadastro extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(null, sql.Cadastro(c),"Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
         
-        if(sql.Cadastro(c) == "Cadastro efetuado com sucesso!"){
-            new Comprar_Pro_Cliente(c).setVisible(true);
+        
+            new Tela_Inicial().setVisible(true);
             dispose();
-        }
+        
 
     }//GEN-LAST:event_ComprarActionPerformed
 

@@ -23,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -290,6 +291,7 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
 
     private void ComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprarActionPerformed
         // TODO add your handling code here:
+        
         if(QtnCaixas.getText().equalsIgnoreCase("") || CodPro.getText().equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(null,"Escolha um produto","Distribuidora Ítalo",JOptionPane.WARNING_MESSAGE);
         }else{
@@ -365,14 +367,16 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
         Produto p = new Produto();
         p.setId(Integer.parseInt(CodPro.getText()));
         
-        if(sql.Confere(p) == true){
+        boolean conf = sql.Confere(p);
+        
+        if(conf == true){
             JOptionPane.showMessageDialog(null,"Produto encontrado","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
             NomePro.setText(p.getTipo());
             MarcaPro.setText(p.getMarca());
             PrecoPro.setText(p.getPreco());
             
             double preco_tot =  Double.parseDouble(p.getPreco()) * Double.parseDouble(QtnCaixas.getText());
-            PrecoTotal.setText(""+preco_tot);
+            PrecoTotal.setText(preco_tot+"");
             
         }else{
             JOptionPane.showMessageDialog(null,"Produto não encontrado","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
@@ -403,7 +407,8 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
 
     private void CodProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodProActionPerformed
        //JOptionPane.showMessageDialog(null, "Insira a quantidade de caixas e aperte ENTER", "Distribuidora Ítalo", JOptionPane.INFORMATION_MESSAGE);
-        if(QtnCaixas.getText().equalsIgnoreCase("") || CodPro.getText().equalsIgnoreCase("")){
+       
+       if(QtnCaixas.getText().equalsIgnoreCase("") || CodPro.getText().equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(null, "Campos caixas e/ou código vazios","Distribuidora Ítalo",JOptionPane.ERROR_MESSAGE);
            CodPro.setText("");
            QtnCaixas.setText("");
@@ -414,14 +419,16 @@ public class Comprar_Pro_Cliente extends javax.swing.JFrame {
         Produto p = new Produto();
         p.setId(Integer.parseInt(CodPro.getText()));
         
-        if(sql.Confere(p) == true){
+        boolean conf = sql.Confere(p);
+        
+        if(conf == true){
             JOptionPane.showMessageDialog(null,"Produto encontrado","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
             NomePro.setText(p.getTipo());
             MarcaPro.setText(p.getMarca());
             PrecoPro.setText(p.getPreco());
             
             double preco_tot =  Double.parseDouble(p.getPreco()) * Double.parseDouble(QtnCaixas.getText());
-            PrecoTotal.setText(""+preco_tot);
+            PrecoTotal.setText(preco_tot+"");
             
         }else{
             JOptionPane.showMessageDialog(null,"Produto não encontrado","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);

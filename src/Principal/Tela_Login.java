@@ -136,7 +136,7 @@ public class Tela_Login extends javax.swing.JFrame {
         c.setUser(JtfUser.getText());
         c.setSenha(JtfSenha.getText());
         
-        if(sql.Login(c) == true){
+        if(sql.Login(c)){
             JOptionPane.showMessageDialog(null,"Login efetuado com sucesso!\nRedirecionando para a tela de compra","Distribuidora Ítalo", JOptionPane.INFORMATION_MESSAGE);
             new Comprar_Pro_Cliente(c).setVisible(true);
             dispose();

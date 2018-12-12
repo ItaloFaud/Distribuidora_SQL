@@ -105,6 +105,26 @@ public class ClienteDAO extends ExecuteSQL{
 //    VerProdutos;
 //    ConferePro;
     
+    public void Nome(Cliente c){
+        try {
+            String sql = "select nome from cliente where id = '"+c.getId()+"'";
+            
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs != null) {
+                while(rs.next()){
+                    c.setNome(rs.getString(1));
+                }
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
    
     
 }

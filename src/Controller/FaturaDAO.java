@@ -7,10 +7,13 @@ package Controller;
 
 import Modelo.Cliente;
 import Modelo.Fatura;
+import Modelo.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,13 +29,14 @@ public class FaturaDAO extends ExecuteSQL {
     
     public void Nova_Fatura(Fatura f,Cliente c){
         try {
-            String consulta = "INSERT INTO fatura VALUES (0,?,?,?)";
+            String consulta = "INSERT INTO fatura VALUES (0,?,?,?,?)";
             System.out.println(""+c.getId());
             
             PreparedStatement ps = getCon().prepareStatement(consulta);
             ps.setString(1, "0");
             ps.setInt(2, c.getId());
             ps.setString(3,"À pagar");
+            ps.setString(4, "Não Liberada");
             
             if(ps.executeUpdate() > 0){
                    
@@ -81,7 +85,7 @@ public class FaturaDAO extends ExecuteSQL {
     
     public boolean Pagamento(Fatura f){
         try {
-            String sql = "update fatura set situacao = 'Paga' where id = '"+f.getId()+"'";
+            String sql = "update fatura set situacao = 'Paga',entrega = 'Liberada' where id = '"+f.getId()+"'";
             
             PreparedStatement ps = getCon().prepareStatement(sql);
             
@@ -93,6 +97,78 @@ public class FaturaDAO extends ExecuteSQL {
             Logger.getLogger(FaturaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public void Liberacao(Fatura f){
+        try {
+            String sql = "update fatura set entrega = 'Em andamento' where id ='"+f.getId()+"'";
+            
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            
+            if(ps.executeUpdate() > 0){
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FaturaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+        public List<Fatura> Consulta(){
+        String consulta = "select id,Subtotal,idCliente,situacao,entrega from fatura where situacao = 'Paga' and entrega = 'Liberada'";
+            List<Fatura> lista = new ArrayList<>();
+        try {
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs != null){
+                while (rs.next()) {                    
+                    Fatura c = new Fatura();
+                    c.setId(rs.getInt(1));
+                    c.setSubtotal(rs.getString(2));
+                    c.setIdCliente(rs.getInt(3));
+                    c.setSituacao(rs.getString(4));
+                    c.setEntrega(rs.getString(5));
+                    lista.add(c);
+                }return lista;
+            }else{
+                return null;
+            }
+            
+        } catch (SQLException ex) {
+           // Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+        
+         public List<Fatura> Consulta2(){
+        String consulta = "select id,Subtotal,idCliente,situacao,entrega from fatura where situacao = 'Paga'";
+            List<Fatura> lista = new ArrayList<>();
+        try {
+            PreparedStatement ps = getCon().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs != null){
+                while (rs.next()) {                    
+                    Fatura c = new Fatura();
+                    c.setId(rs.getInt(1));
+                    c.setSubtotal(rs.getString(2));
+                    c.setIdCliente(rs.getInt(3));
+                    c.setSituacao(rs.getString(4));
+                    c.setEntrega(rs.getString(5));
+                    lista.add(c);
+                }return lista;
+            }else{
+                return null;
+            }
+            
+        } catch (SQLException ex) {
+           // Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
     }
     
 }
