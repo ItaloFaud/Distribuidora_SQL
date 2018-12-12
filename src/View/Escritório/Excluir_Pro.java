@@ -44,7 +44,7 @@ public class Excluir_Pro extends javax.swing.JFrame {
         AtualizaTable();
     }
     
-    public void AtualizaTable_Vencidos(){
+    public void AtualizaTable_Vencidos(boolean venc){
         Connection con = Conexao.AbrirConexao();
         ProdutoDAO sql = new ProdutoDAO(con);
         
@@ -70,20 +70,23 @@ public class Excluir_Pro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
                 
                 i++;
+                venc = true;
             }else{
                 if(Integer.parseInt(data_hj[1]) > Integer.parseInt(data_venc[1]) && Integer.parseInt(data_hj[2]) > Integer.parseInt(data_venc[2])){
-                 p.setId(tab.getId());
-                //id[i] = p.getId()+"";
-                System.out.println("Id "+i+": "+p.getId());
-                JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
-                i++;
+                    p.setId(tab.getId());
+                   //id[i] = p.getId()+"";
+                   System.out.println("Id "+i+": "+p.getId());
+                   JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+                   i++;
+                   venc = true;
                 }else{
                     if(Integer.parseInt(data_hj[0]) > Integer.parseInt(data_venc[0]) && Integer.parseInt(data_hj[1]) > Integer.parseInt(data_venc[1]) && Integer.parseInt(data_hj[2]) > Integer.parseInt(data_venc[2])){
-                      p.setId(tab.getId());
-                      //id[i] = p.getId()+"";
-                      System.out.println("Id "+i+": "+p.getId());
-                      JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
-                      i++;
+                        p.setId(tab.getId());
+                        //id[i] = p.getId()+"";
+                        System.out.println("Id "+i+": "+p.getId());
+                        JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+                        i++;
+                        venc = true;
                     }else{
                        
                     }
@@ -222,37 +225,11 @@ public class Excluir_Pro extends javax.swing.JFrame {
         new Tela_Inicial().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         new Controle_Escritório().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
         int linha = jTable2.getSelectedRow();
@@ -282,7 +259,11 @@ public class Excluir_Pro extends javax.swing.JFrame {
 
     private void BtnVencidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVencidosActionPerformed
         // TODO add your handling code here:
-        AtualizaTable_Vencidos();
+        boolean venc = false;
+        AtualizaTable_Vencidos(venc);
+        if(venc == false){
+            JOptionPane.showMessageDialog(null, "Não há produtos vencidos","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+        }
         //  JOptionPane.showMessageDialog(null,r);
     }//GEN-LAST:event_BtnVencidosActionPerformed
 

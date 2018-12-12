@@ -58,7 +58,7 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
         nf.setMaximumFractionDigits(2);
         nf.setMinimumFractionDigits(2);
         List<Fatura> lista = new ArrayList<>();
-        lista = sql.Consulta();
+        lista = sql.Consulta2();
         DefaultTableModel tbm = (DefaultTableModel) jTable2.getModel();
         while(tbm.getRowCount() > 0){
             tbm.removeRow(0);
@@ -76,8 +76,8 @@ public class Ver_Lista_Escritório extends javax.swing.JFrame {
             i++;
         }
         
-        System.out.println("R$:"+nf.format(total));
-        Valor.setText("R$:"+nf.format(total));
+//        System.out.println("R$:"+nf.format(total));
+        Valor.setText(nf.format(total));
         Conexao.FecharConexao(con);
     }
 

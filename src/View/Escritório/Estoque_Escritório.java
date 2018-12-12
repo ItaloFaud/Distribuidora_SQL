@@ -81,7 +81,7 @@ public class Estoque_Escritório extends javax.swing.JFrame {
         Conexao.FecharConexao(con);
     }
     
-    public void AtualizaTable_Vencidos(){
+    public void AtualizaTable_Vencidos(boolean venc){
         Connection con = Conexao.AbrirConexao();
         ProdutoDAO sql = new ProdutoDAO(con);
         
@@ -105,15 +105,16 @@ public class Estoque_Escritório extends javax.swing.JFrame {
                 //id[i] = p.getId()+"";
                 System.out.println("Id "+i+": "+p.getId());
                 JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
-                
+                venc = true;
                 i++;
             }else{
                 if(Integer.parseInt(data_hj[1]) > Integer.parseInt(data_venc[1]) && Integer.parseInt(data_hj[2]) > Integer.parseInt(data_venc[2])){
-                 p.setId(tab.getId());
-                //id[i] = p.getId()+"";
-                System.out.println("Id "+i+": "+p.getId());
-                JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
-                i++;
+                    p.setId(tab.getId());
+                   //id[i] = p.getId()+"";
+                   System.out.println("Id "+i+": "+p.getId());
+                   JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+                   i++;
+                   venc = true;
                 }else{
                     if(Integer.parseInt(data_hj[0]) > Integer.parseInt(data_venc[0]) && Integer.parseInt(data_hj[1]) > Integer.parseInt(data_venc[1]) && Integer.parseInt(data_hj[2]) > Integer.parseInt(data_venc[2])){
                       p.setId(tab.getId());
@@ -121,6 +122,7 @@ public class Estoque_Escritório extends javax.swing.JFrame {
                       System.out.println("Id "+i+": "+p.getId());
                       JOptionPane.showMessageDialog(null,"Produto de Id("+p.getId()+") está vencido","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
                       i++;
+                      venc = true;
                     }else{
                        
                     }
@@ -249,7 +251,11 @@ public class Estoque_Escritório extends javax.swing.JFrame {
 
     private void BtnVencidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVencidosActionPerformed
         // TODO add your handling code here:
-       AtualizaTable_Vencidos();
+        boolean venc = false;
+       AtualizaTable_Vencidos(venc);
+       if(venc == false){
+            JOptionPane.showMessageDialog(null, "Não há produtos vencidos","Distribuidora Ítalo",JOptionPane.INFORMATION_MESSAGE);
+        }
       //  JOptionPane.showMessageDialog(null,r);
     }//GEN-LAST:event_BtnVencidosActionPerformed
 
